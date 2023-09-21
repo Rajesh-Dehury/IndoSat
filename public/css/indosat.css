@@ -1,0 +1,417 @@
+body {
+    background-color: #ffffff;
+    height: 100%;
+    overflow-x: hidden;
+}
+.signup_banner {
+    background-image: url('/assets/indosat/signup_background_2.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.login_banner {
+    background-image: url('/assets/indosat/signup_background_2.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px){
+    #navbarResponsives.collapse.show {
+        display: block;
+    }
+    #navbarResponsives {
+        background: none;
+        z-index: 9999;
+        padding: 0 15px;
+        margin-top: 15px;
+        border-radius: 15px;
+    }
+    .title{
+        font-size: 24px !important;
+    }
+    .signup-section {
+        padding-top: 8rem !important;
+        border-radius: 40px 40px 0 0 !important;
+    }
+    .language-selector>.dropdown-toggle {
+        color: #fff !important;
+    }
+    .people-logo {
+        width: 40% !important;
+        top: -18% !important;
+        left: 35% !important;
+    }
+    .login-section {
+        padding-top: 4rem !important;
+        border-radius: 40px 40px 0 0 !important;
+    }
+    .people-logo-right {
+        width: 40% !important;
+        top: -18% !important;
+        right: 35% !important;
+    }
+    .login-logo {
+        display: none !important;
+    }
+    .login-logo2 {
+        display: block !important;
+    }
+    .login-logo2 {
+        width: 200px !important;
+        padding-top: 2rem !important;
+        padding-bottom: 8rem !important;
+    }
+    .people-logo-left {
+        top: -18% !important;
+        left: 30% !important;
+    }
+    #login_mobile {
+        display: block !important;
+    }
+    #login-desktop {
+        display: none !important;
+    }
+}
+@media  only screen and (max-width: 600px) {
+    #main_lv_logo{
+        padding-right: 0.5rem; 
+    }
+}
+@media (min-width: 576px) {
+    .people-logo {
+        width: 40% !important;
+    }
+    .people-logo-right {
+        width: 60% !important;
+    }
+    .login-logo2 {
+        display: none !important;
+    }
+    #login_mobile {
+        display: none !important;
+    }
+    #login-desktop {
+        display: block !important;
+    }
+}
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-nav .dropdown-menu {
+        position: absolute;
+    }
+    .navbar-expand-lg .navbar-collapse {
+        display: -webkit-box!important;
+        display: -ms-flexbox!important;
+        display: flex!important;
+        -ms-flex-preferred-size: auto;
+        flex-basis: auto;
+    }
+}
+.language-selector .dropdown-menu.pull-right {
+    -webkit-border-radius: 3px 0 3px 3px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 3px 0 3px 3px;
+    -moz-background-clip: padding;
+    border-radius: 3px 0 3px 3px;
+    background-clip: padding-box;
+    margin-right: 5px;
+}
+.language-selector .dropdown-menu {
+    width: 230px;
+}
+#mainNav {
+    background-color: none;
+}
+.inner-nav {
+    background-image: none;
+}
+#main_lv_logo img{
+    padding-right: 1rem; 
+    height: 40px;
+}
+.fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    justify-content: center;
+}
+.login_form {
+    text-align: left;
+}
+.login_form label {
+    display: block;
+    font-weight: 600;
+    line-height: 1.71;
+    margin-bottom: 5px;
+    color: #3A3A3A;
+}
+label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disabled), [type="submit"]:not(:disabled) {
+    cursor: pointer;
+}
+.signup_form .app-input_show-password {
+    background: #fff url('/assets/indosat/eye.png');
+    background-size: cover;
+    width: 23px;
+    height: 13px;
+    border: none;
+    outline: none;
+    position: absolute;
+    right: 20px;
+    top: 40%;
+}
+.login_form .app-input_show-password {
+    background: #fff url('/assets/indosat/eye.png');
+    background-size: cover;
+    width: 23px;
+    height: 13px;
+    border: none;
+    outline: none;
+    position: absolute;
+    right: 20px;
+    top: 60%;
+}
+.login_form .form-control {
+    display: block;
+    border-radius: 10px;
+    box-shadow: inset 0 2px 3px 0 rgb(0 0 0 / 10%);
+    background-color: #fff;
+    height: 50px;
+    border: 1px solid #ccc;
+    width: 100%;
+    outline: none;
+    padding: 0 20px;
+    color: #33323f;
+    font-size: 16px;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+button, input {
+    overflow: visible;
+}
+.dropup, .dropright, .dropdown, .dropleft {
+    position: relative;
+}
+.language-selector.open>.dropdown-toggle {
+    -webkit-border-radius: 3px 3px 0 0;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 3px 3px 0 0;
+    -moz-background-clip: padding;
+    border-radius: 3px 3px 0 0;
+    background-clip: padding-box;
+}
+.language-selector>.dropdown-toggle {
+    display: inline-block;
+    padding: 7px 12px;
+    -webkit-border-radius: 3px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 3px;
+    -moz-background-clip: padding;
+    border-radius: 3px;
+    background-clip: padding-box;
+    text-decoration: none;
+    color: #CAC1C1;
+}
+.dropdown-toggle {
+    white-space: nowrap;
+}
+a {
+    text-decoration: none;
+    background-color: transparent;
+}
+.language-selector .dropdown-menu>li {
+    border-bottom: 1px solid #ebebeb;
+}
+.language-selector>.dropdown-toggle img {
+    display: inline-block;
+    line-height: 1;
+    width: 24px;
+}
+.language-selector .dropdown-menu>li a img {
+    margin-right: 5px;
+    width: 24px;
+}
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+.language-selector .dropdown-menu>li a {
+    background: rgba(235, 235, 235, 0.9);
+    color: #737881;
+}
+.language-selector .dropdown-menu>li a {
+    margin: 0;
+    display: block;
+    -webkit-border-radius: 0;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 0;
+    -moz-background-clip: padding;
+    border-radius: 0;
+    background-clip: padding-box;
+    padding: 10px 20px;
+    color: #8d929a;
+    -webkit-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+}
+a {
+    text-decoration: none;
+    background-color: transparent;
+}
+.language-selector .dropdown-menu>li.active a {
+    background: rgba(210, 210, 210, 0.9);
+    color: #737881;
+}
+.dropdown-menu {
+    padding: 0;
+}
+
+input, button, select, optgroup, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+.login_form .btn-grad {
+    display: block;
+    border-radius: 8px;
+    padding: 12px;
+    border: none;
+    width: 100%;
+    outline: none;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 10px 10px 0 rgb(0 0 0 / 10%);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    background-image: linear-gradient(to right, #a6c1ee 0%, #8fd3f4 50%, #f6d365 115%);
+}
+.login_links p {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 2;
+    color: #BDADAD;
+    text-decoration: none;
+}
+.login_links a {
+    color: #8950E1;
+    text-decoration:underline;
+}
+.title1{
+    font-size: 16px;
+    color: #757575;
+}
+.title2{
+    font-size: 36px;
+    font-weight: 700;
+    color: #000;
+}
+.signup-logo {
+    width: 200px;
+    padding-top: 2rem;
+    padding-bottom: 8rem;
+}
+.login-logo {
+    width: 200px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.login-logo2 {
+    display: none;
+}
+#login_mobile {
+    display: none;
+}
+#login-desktop {
+    display: block;
+}
+.d-flex {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+}
+.signup-section {
+    padding-top: 14rem;
+    padding-bottom: 10rem;
+    background-color: #ffffff;
+    border-radius: 40px 0 0 40px;
+    /* text-align: center; */
+}
+.people-logo {
+    width: 35%;
+    position: absolute;
+    top: 20%;
+    left: -15%;
+}
+.signup_form .form-control{
+    border: none;
+    border-bottom: 2px solid #ced4da;
+    border-radius: 0rem;
+}
+.signup_form .btn-grad {
+    display: block;
+    border-radius: 8px;
+    padding: 12px;
+    border: none;
+    width: 100%;
+    outline: none;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 10px 10px 0 rgb(0 0 0 / 10%);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    background-image: linear-gradient(to right, #a6c1ee 0%, #8fd3f4 50%, #f6d365 115%);
+}
+.login-section {
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+    background-color: #ffffff;
+    border-radius: 0 40px 40px 0;
+    text-align: center;
+}
+.people-logo-right {
+    width: 60%;
+    position: absolute;
+    top: 25%;
+    right: -40%;
+}
+.people-logo-left {
+    width: 60%;
+    position: absolute;
+    top: 25%;
+    left: -35%;
+}

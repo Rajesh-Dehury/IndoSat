@@ -1,0 +1,114 @@
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+}
+
+#main_lv_logo {
+    padding: 16px 20px;
+    margin-top: 2rem;
+}
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+.sidebar a {
+    padding: 16px 20px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #989898;
+    display: block;
+    transition: 0.3s;
+}
+.sidebar a:hover {
+    color: #40C4C1;
+}
+.sidebar a .active {
+    color: #000000;
+}
+.sidebar .closebtn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 10px 15px;
+    border: none;
+}
+.openbtn:hover {
+    border: none;
+}
+.openbtn:active {
+    border: none;
+}
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+.nav_card {
+    position: relative;
+    display: inline-block;
+}
+.nav_card img {
+    object-fit: cover;
+    height: 30px;
+    width: 30px;
+    margin: 10px 15px;
+}
+
+.sections-bg {
+    background-color: #8950E11A;
+    padding: 60px 0;
+}
+.section-header {
+    padding: 2rem 0;
+}
+.upper {
+    text-transform: uppercase;
+}
+.section-header .aboard {
+    color: #ffffff;
+    background-image: linear-gradient(to right, #9500FF 33%, #CC00FF 75%);
+    border-radius: 35px;
+    padding: 15px;
+}
+.box {
+    padding: 65px 40px;
+    background: #fff;
+    height: auto;
+    border-radius: 30px;
+    color: #000000;
+    font-size: 20px;
+    font-weight: 500;
+}
+.purple {
+    background-image: linear-gradient(to right, #9500FF 33%, #CC00FF 75%);
+    color: #ffffff;
+}
+.credits img {
+    width: 150px;
+    position: absolute;
+    right: 15px;
+    top: 5px;
+}
+.web-img img {
+    width: 100%;
+}
+.summary img {
+    width: 100px;
+}
+
