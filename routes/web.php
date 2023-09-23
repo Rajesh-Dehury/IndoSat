@@ -19,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/webinar_new', function () {
+    return view('indosat_webinar_new');
+});
+Route::get('/webinar_details', function () {
+    return view('indosat_webinar_details');
+});
 
 
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
@@ -31,6 +37,7 @@ Route::group(['middleware' => ['guest:indosat_user']], function () {
 });
 
 Route::group(['middleware' => ['auth:indosat_user']], function () {
-    Route::get('indosat/dashboard', [IndosatAuthController::class, 'dashboard'])->name('indosat.dashboard');
+    Route::get('indosat/webinar', [IndosatAuthController::class, 'webinar'])->name('indosat.webinar');
+    Route::get('indosat/webinar/details', [IndosatAuthController::class, 'webinarDetails'])->name('indosat.webinar.details');
     Route::get('indosat/logout', [IndosatAuthController::class, 'logout'])->name('indosat.logout');
 });

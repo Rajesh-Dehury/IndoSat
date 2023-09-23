@@ -18,6 +18,16 @@ return [
         'login_to_your_account' => 'Login to your account',
         'dont_have_account' => "Don't have any account yet?",
         'signup' => 'Sign Up',
-    ]
-
+    ],
+    'webinar' => [
+        'welcome' => 'WELCOME',
+        'aboard' => 'ABOARD',
+        'this_platform_grants' => 'This platform grants you the opportunity to select the webinar of your choice for participation.',
+        'available_credits' => 'Available Credits',
+        'used_credits' => 'Used Credits',
+        'expired_credits' => 'Expired Credits',
+        'here_are' => 'Here are the webinars that you can redeem',
+        'upcoming_webinars' => 'Upcoming webinars that you have signed up',
+        'check_out_your_monthly_credit' => 'Check out your monthly credit summary below.',
+    ],
 ];

@@ -21,7 +21,7 @@ class IndosatAuthController extends Controller
         ]);
 
         if (Auth::guard('indosat_user')->attempt(['unique_code' => $request->unique_code, 'password' => $request->password])) {
-            return redirect()->route('indosat.dashboard');
+            return redirect()->route('indosat.webinar');
         }
 
         return redirect()
@@ -56,7 +56,7 @@ class IndosatAuthController extends Controller
         );
 
         if (Auth::guard('indosat_user')->loginUsingId($indosatUser->id)) {
-            return redirect()->route('indosat.dashboard');
+            return redirect()->route('indosat.webinar');
         }
 
         return redirect()->back();
@@ -68,8 +68,12 @@ class IndosatAuthController extends Controller
         return redirect()->route('indosat.login');
     }
     
-    public function dashboard()
+    public function webinar()
     {
         return view('indosat_webinar');
+    }
+    public function webinarDetails()
+    {
+        return view('indosat_webinar_details');
     }
 }
