@@ -513,10 +513,10 @@ label {
 
 /* Webinar details page */
 .date-box {
-    width: 150px;
+    /* width: 150px; */
     position: relative;
     bottom: 10%;
-    left: 35%;
+    left: 25%;
     color: #42445D;
     border-radius: 10px;
     box-shadow: 0px 3px 5px 1px rgb(0 0 0 / 41%);
@@ -537,12 +537,12 @@ label {
 .box2 {
     position: absolute;
     bottom: 40%;
-    left: 20%;
+    left: 8%;
 }
 .box3 {
     position: absolute;
     bottom: 40%;
-    left: 60%;
+    left: 50%;
 }
 .box2 i, .box3 i {
     color: #42445D;

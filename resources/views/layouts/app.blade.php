@@ -7,22 +7,26 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     {{-- owl carousel --}}
     <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/owl.theme.default.min.css')}}">
+    <script src="{{ asset('assets/js/owl.carousel.min.js')}}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
-    <title>@yield('title','Indosat')</title>
+    <title>Indosat Webinar</title>
 
-    <link rel="stylesheet" href="/css/indosat.css">
+    <link rel="stylesheet" href="{{ asset('css/indosat.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/indosat_webinar.css')}}">
+
     @stack('css')
 </head>
 
 <body>
     @include('layouts.navigation')
-    
+
     @yield('content')
 
     <script>

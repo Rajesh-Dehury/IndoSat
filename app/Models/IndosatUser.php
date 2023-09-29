@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -37,4 +38,31 @@ class IndosatUser extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    function credits(): HasMany
+    {
+        return $this->hasMany(IndosatUsersCredit::class, 'user_id', 'id');
+    }
+
+    public function getTotalUserCredits()
+    {
+        return $this->credits->filter(function ($credit) {
+            return $credit->credit > 0;
+        })->sum('credit');
+    }
+
+    public function getTotalExpiryCredits()
+    {
+        return $this->credits->where('expired', '<=', now())->sum('credit');
+    }
+
+    public function getTotalAvailableCredits()
+    {
+        $totalUserCredits = $this->getTotalUserCredits();
+        $totalExpiryCredits = $this->getTotalExpiryCredits();
+
+        $availableCredits = max($totalUserCredits - $totalExpiryCredits, 0);
+
+        return $availableCredits;
+    }
 }

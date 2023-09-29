@@ -38,6 +38,9 @@ Route::group(['middleware' => ['guest:indosat_user']], function () {
 
 Route::group(['middleware' => ['auth:indosat_user']], function () {
     Route::get('indosat/webinar', [IndosatAuthController::class, 'webinar'])->name('indosat.webinar');
-    Route::get('indosat/webinar/details', [IndosatAuthController::class, 'webinarDetails'])->name('indosat.webinar.details');
+    Route::get('indosat/webinar/details/{id}', [IndosatAuthController::class, 'webinarDetails'])->name('indosat.webinar.details');
+    // webinar credit
+    Route::get('/filter-credit', [IndosatAuthController::class, 'filterCreditAjax'])->name('filter.credit');
+
     Route::get('indosat/logout', [IndosatAuthController::class, 'logout'])->name('indosat.logout');
 });

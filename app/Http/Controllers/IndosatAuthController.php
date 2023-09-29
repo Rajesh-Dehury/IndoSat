@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IndonesiaEvent;
 use App\Models\IndosatUser;
+use App\Models\IndosatUsersCredit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -52,6 +54,7 @@ class IndosatAuthController extends Controller
             [
                 'password' => Hash::make($request->password),
                 'is_signup' => true,
+                'created_at' => now(),
             ]
         );
 
@@ -67,13 +70,38 @@ class IndosatAuthController extends Controller
         Auth::guard('indosat_user')->logout();
         return redirect()->route('indosat.login');
     }
-    
+
     public function webinar()
     {
-        return view('indosat_webinar');
+        $events = IndonesiaEvent::get();
+        $signed_up_events = IndonesiaEvent::get();
+        $credits = IndosatUsersCredit::where('user_id', auth('indosat_user')->user()->id)->get();
+        return view('indosat_webinar', compact('events', 'signed_up_events', 'credits'));
     }
-    public function webinarDetails()
+    public function webinarDetails($id)
     {
-        return view('indosat_webinar_details');
+        $details = IndonesiaEvent::find($id);
+        $selected_events = IndonesiaEvent::get();
+        $previous_events = IndonesiaEvent::get();
+        return view('indosat_webinar_details', compact('details', 'selected_events', 'previous_events'));
+    }
+
+    public function filterCreditAjax(Request $request)
+    {
+        $userId = auth('indosat_user')->user()->id;
+        $month = $request->input('month');
+
+        if ($month == null) {
+            return IndosatUsersCredit::where('user_id', $userId)->get();
+        } else {
+            $date = \Carbon\Carbon::createFromFormat('Y-m', $month);
+            $selectedMonth = $date->format('m');
+            $selectedYear = $date->format('Y');
+
+            return IndosatUsersCredit::where('user_id', $userId)
+                ->whereMonth('created_at', $selectedMonth)
+                ->whereYear('created_at', $selectedYear)
+                ->get();
+        }
     }
 }

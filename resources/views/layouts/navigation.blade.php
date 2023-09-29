@@ -12,7 +12,7 @@
             <img src="/assets/indosat/lifevitae_purple.png">
         </a>
         <li>
-            <a href="#" class="wui-side-menu-item">
+            <a href="{{route('indosat.webinar.details',1)}}" class="wui-side-menu-item {{request()->routeIs('indosat.webinar.details')?'active':''}}">
                 <div class="nav_card">
                     <img src="/assets/indosat/icon_express.png">
                     <img src="/assets/indosat/icon_express_active.png" class="img-top">
@@ -21,7 +21,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="wui-side-menu-item active">
+            <a href="{{route('indosat.webinar')}}" class="wui-side-menu-item {{request()->routeIs('indosat.webinar')?'active':''}}">
                 <div class="nav_card">
                     <img src="/assets/indosat/icon_webinar.png">
                     <img src="/assets/indosat/icon_webinar_active.png" class="img-top">

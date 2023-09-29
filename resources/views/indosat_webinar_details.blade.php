@@ -1,9 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Indosat Webinar')
 @section('content')
-@push('css')
-<link rel="stylesheet" href="/css/indosat_webinar.css">
-@endpush
 <div class="wui-content">
     <div class="wui-content-header">
         <a href="#" class="wui-side-menu-trigger">
@@ -34,20 +31,35 @@
                         </div>
                     </div>
                     <div class="box web-img">
+                        <div class="main_sug_box">
+                            <span>Leadership</span>
+                        </div>
                         <img src="/assets/indosat/webinar_details.png">
                         <div class="date-box box1">
                             <i class="fa-solid fa-calendar-days"></i>
-                            <span>Date</span>
+                            <span>Date {{$details->date}}</span>
                         </div>
                         <div class="date-box box1">
                             <i class="fa-solid fa-clock"></i>
-                            <span>Time</span>
+                            <span>Time {{$details->time}}</span>
                         </div>
+                        @php
+                        preg_match('/https:\/\/[^\s]+/', $details->zoom_link, $urlMatches);
+                        $zoomUrl = isset($urlMatches[0]) ? $urlMatches[0] : '';
+
+                        $lastSlashPos = strrpos($zoomUrl, '/');
+
+                        $meetingId = substr($zoomUrl, $lastSlashPos + 1);
+                        if (strpos($meetingId, '?') !== false) {
+                        $meetingId = substr($meetingId, 0, strpos($meetingId, '?'));
+                        }
+
+                        @endphp
                         <div class="details">
-                            <p>Webinar Title:
+                            <p>Webinar Title: {{$details->name}}
                                 <br>Speaker:
-                                <br>Zoom Link:
-                                <br>Zoom ID:
+                                <br>Zoom Link: <a href="{{$zoomUrl}}" class="link-primary">{{Str::limit($zoomUrl, $limit = 90, $end = '...')}}</a>
+                                <br>Zoom ID: {{$meetingId}}
                             </p>
                         </div>
                         <div class="info">Please join the Zoom meeting 10 minutes prior to the scheduled start time.</div>
@@ -60,22 +72,39 @@
                         </div>
                     </div>
                     <div id="carouselExampleControls_7" class="owl-carousel new-carousel-selected" data-ride="carousel">
+                        @foreach($selected_events as $event)
+                        @php
+                        preg_match('/https:\/\/[^\s]+/', $event->zoom_link, $urlMatches);
+                        $zoomUrl = isset($urlMatches[0]) ? $urlMatches[0] : '';
+
+                        $lastSlashPos = strrpos($zoomUrl, '/');
+
+                        $meetingId = substr($zoomUrl, $lastSlashPos + 1);
+                        if (strpos($meetingId, '?') !== false) {
+                        $meetingId = substr($meetingId, 0, strpos($meetingId, '?'));
+                        }
+
+                        @endphp
+
                         <div class="item">
                             <div class="box web-img">
+                                <div class="web_sug_box details_sug_box">
+                                    <span>Leadership</span>
+                                </div>
                                 <img src="/assets/indosat/webinar_selected.png">
                                 <div class="date-box box2">
                                     <i class="fa-solid fa-calendar-days"></i>
-                                    <span>Date</span>
+                                    <span>{{$event->date}}</span>
                                 </div>
                                 <div class="date-box box3">
                                     <i class="fa-solid fa-clock"></i>
-                                    <span>Time</span>
+                                    <span>{{$event->time}}</span>
                                 </div>
                                 <div class="details">
-                                    <p>Webinar Title:
+                                    <p>Webinar Title: {{Str::limit($event->name, $limit = 40, $end = '...')}}
                                         <br>Speaker:
-                                        <br>Zoom Link:
-                                        <br>Zoom ID:
+                                        <br>Zoom Link: <a href="{{$zoomUrl}}" class="link-primary">{{Str::limit($zoomUrl, $limit = 40, $end = '...')}}</a>
+                                        <br>Zoom ID: {{$meetingId}}
                                     </p>
                                 </div>
                                 <div class="info">Please join the Zoom meeting 10 minutes prior to the scheduled start time.
@@ -85,31 +114,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="box web-img">
-                                <img src="/assets/indosat/webinar_selected.png">
-                                <div class="date-box box2">
-                                    <i class="fa-solid fa-calendar-days"></i>
-                                    <span>Date</span>
-                                </div>
-                                <div class="date-box box3">
-                                    <i class="fa-solid fa-clock"></i>
-                                    <span>Time</span>
-                                </div>
-                                <div class="details">
-                                    <p>Webinar Title:
-                                        <br>Speaker:
-                                        <br>Zoom Link:
-                                        <br>Zoom ID:
-                                    </p>
-                                </div>
-                                <div class="info">Please join the Zoom meeting 10 minutes prior to the scheduled start time.
-                                    <span class="back-arrow">
-                                        <i class="fa-solid fa-circle-arrow-right"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="row mt-4">
@@ -119,30 +124,17 @@
                         </div>
                     </div>
                     <div id="carouselExampleControls_7" class="owl-carousel new-carousel-previous" data-ride="carousel">
+                        @foreach($previous_events as $event)
                         <div class="item">
                             <div class="box web-img">
-                                <img src="/assets/indosat/webinar_rec.png">
-                                <p>Webinar Title:</p>
+                                <div class="web_sug_box">
+                                    <span>Leadership</span>
+                                </div>
+                                <img src="/assets/indosat/webinar_rec.png" id="confirmBtn">
+                                <p>{{Str::limit($event->name, $limit = 20, $end = '...')}}</p>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="box web-img">
-                                <img src="/assets/indosat/webinar_rec.png">
-                                <p>Webinar Title:</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="box web-img">
-                                <img src="/assets/indosat/webinar_rec.png">
-                                <p>Webinar Title:</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="box web-img">
-                                <img src="/assets/indosat/webinar_rec.png">
-                                <p>Webinar Title:</p>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="row mt-4">
@@ -164,8 +156,6 @@
 
 
 @push('js')
-{{-- carousel --}}
-<script src="{{ asset('assets/js/owl.carousel.min.js')}}"></script>
 <script>
     $('.new-carousel-selected').owlCarousel({
         responsive: {
