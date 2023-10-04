@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -64,5 +65,10 @@ class IndosatUser extends Authenticatable
         $availableCredits = max($totalUserCredits - $totalExpiryCredits, 0);
 
         return $availableCredits;
+    }
+
+    function userEvents(): HasMany
+    {
+        return $this->hasMany(IndosatEventUser::class, 'indosat_user_id', 'id');
     }
 }

@@ -127,6 +127,12 @@
                     </div>
                     <div id="carouselExampleControls4" class="owl-carousel new-carousel-web2" data-ride="carousel">
                         @foreach($signed_up_events as $event)
+                        @php
+                        $eventDate = \Carbon\Carbon::parse($event->event->date);
+                        $now = \Carbon\Carbon::now();
+                        @endphp
+
+                        @if($eventDate->greaterThanOrEqualTo($now))
                         <div class="item">
                             <div class="box web-img">
                                 <div class="web_sug_box upweb_sug_box">
@@ -135,26 +141,27 @@
                                 <img src="/assets/indosat/rounded.png">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <p>Date: {{$event->date}}</p>
+                                        <p>Date: {{$event->event->date}}</p>
                                     </div>
                                     <div class="col-lg-6">
-                                        <p>Time: {{$event->time}}</p>
+                                        <p>Time: {{$event->event->time}}</p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <p>{{$event->name}}</p>
+                                        <p>{{$event->event->name}}</p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="view-button">
-                                            <a href="{{route('indosat.webinar.details',$event->id)}}" class="button-green">View Details</a>
+                                            <a href="{{route('indosat.webinar.details',$event->event->id)}}" class="button-green">View Details</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @endif
                         @endforeach
                     </div>
                 </div>

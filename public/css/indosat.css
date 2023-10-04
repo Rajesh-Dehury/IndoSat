@@ -2,6 +2,7 @@ body {
     background-color: #ffffff;
     height: 100%;
     overflow-x: hidden;
+
 }
 .signup_banner {
     background-image: url('/assets/indosat/signup_background_2.png');
@@ -364,11 +365,11 @@ input, button, select, optgroup, textarea {
     display: flex !important;
 }
 .signup-section {
-    padding-top: 14rem;
+    padding-top: 10rem;
     padding-bottom: 10rem;
     background-color: #ffffff;
     border-radius: 40px 0 0 40px;
-    /* text-align: center; */
+    text-align: center;
 }
 .people-logo {
     width: 35%;
@@ -397,8 +398,8 @@ input, button, select, optgroup, textarea {
     background-image: linear-gradient(to right, #a6c1ee 0%, #8fd3f4 50%, #f6d365 115%);
 }
 .login-section {
-    padding-top: 4rem;
-    padding-bottom: 6rem;
+    padding-top: 0;
+    padding-bottom: 3rem;
     background-color: #ffffff;
     border-radius: 0 40px 40px 0;
     text-align: center;

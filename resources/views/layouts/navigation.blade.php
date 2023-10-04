@@ -30,7 +30,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="wui-side-menu-item">
+            <a href="{{route('indosat.certificate')}}" class="wui-side-menu-item {{request()->routeIs('indosat.certificate')?'active':''}}">
                 <div class="nav_card">
                     <img src="/assets/indosat/icon_certificate.png">
                     <img src="/assets/indosat/icon_certificate_active.png" class="img-top">

@@ -20,6 +20,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/indosat.css')}}">
     <link rel="stylesheet" href="{{ asset('css/indosat_webinar.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/indosat_express.css')}}">
 
     @stack('css')
 </head>

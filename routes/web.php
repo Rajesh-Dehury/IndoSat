@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\IndosatAuthController;
 use App\Http\Controllers\LangController;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,9 @@ Route::group(['middleware' => ['auth:indosat_user']], function () {
     Route::get('indosat/webinar/details/{id}', [IndosatAuthController::class, 'webinarDetails'])->name('indosat.webinar.details');
     // webinar credit
     Route::get('/filter-credit', [IndosatAuthController::class, 'filterCreditAjax'])->name('filter.credit');
-
+    // logout
     Route::get('indosat/logout', [IndosatAuthController::class, 'logout'])->name('indosat.logout');
+
+    // certificate
+    Route::get('indosat/certificate', [CertificateController::class, 'certificate'])->name('indosat.certificate');
 });

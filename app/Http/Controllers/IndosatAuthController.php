@@ -73,15 +73,29 @@ class IndosatAuthController extends Controller
 
     public function webinar()
     {
+        $user = Auth::guard('indosat_user')->user();
+
         $events = IndonesiaEvent::get();
-        $signed_up_events = IndonesiaEvent::get();
-        $credits = IndosatUsersCredit::where('user_id', auth('indosat_user')->user()->id)->get();
+        $signed_up_events = [];
+
+        if ($user) {
+            $signed_up_events = $user->userEvents;
+        }
+
+        $credits = IndosatUsersCredit::where('user_id', $user->id)->get();
         return view('indosat_webinar', compact('events', 'signed_up_events', 'credits'));
     }
     public function webinarDetails($id)
     {
+        $user = Auth::guard('indosat_user')->user();
+
         $details = IndonesiaEvent::find($id);
-        $selected_events = IndonesiaEvent::get();
+        $selected_events = [];
+
+        if ($user) {
+            $selected_events = $user->userEvents;
+        }
+
         $previous_events = IndonesiaEvent::get();
         return view('indosat_webinar_details', compact('details', 'selected_events', 'previous_events'));
     }

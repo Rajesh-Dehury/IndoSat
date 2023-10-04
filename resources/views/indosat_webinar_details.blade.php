@@ -85,7 +85,7 @@
                         }
 
                         @endphp
-
+                        @if($event->event->id != $details->id)
                         <div class="item">
                             <div class="box web-img">
                                 <div class="web_sug_box details_sug_box">
@@ -94,14 +94,14 @@
                                 <img src="/assets/indosat/webinar_selected.png">
                                 <div class="date-box box2">
                                     <i class="fa-solid fa-calendar-days"></i>
-                                    <span>{{$event->date}}</span>
+                                    <span>{{$event->event->date}}</span>
                                 </div>
                                 <div class="date-box box3">
                                     <i class="fa-solid fa-clock"></i>
-                                    <span>{{$event->time}}</span>
+                                    <span>{{$event->event->time}}</span>
                                 </div>
                                 <div class="details">
-                                    <p>Webinar Title: {{Str::limit($event->name, $limit = 40, $end = '...')}}
+                                    <p>Webinar Title: {{Str::limit($event->event->name, $limit = 40, $end = '...')}}
                                         <br>Speaker:
                                         <br>Zoom Link: <a href="{{$zoomUrl}}" class="link-primary">{{Str::limit($zoomUrl, $limit = 40, $end = '...')}}</a>
                                         <br>Zoom ID: {{$meetingId}}
@@ -114,6 +114,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         @endforeach
                     </div>
                 </div>
