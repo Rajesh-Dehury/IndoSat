@@ -30,48 +30,98 @@
                             <h3>Your certificates</h3>
                         </div>
                     </div>
+                    @foreach($certificates as $event)
                     <div class="col-lg-6">
                         <div class="box certi-img">
-                            <img src="/assets/indosat/express/certificate.png">
+                            <div class="container">
+                                <div class="certificate">
+                                    <img class="certificate-border" src="/assets/indosat/express/certificate.png" alt="Certificate Border 1">
+                                    <div class="top-left">
+                                        <!-- <pre> -->
+                                        <p><span class="tp_left_text">LIFEVITAE</span></p>
+                                        <p><span class="tp_left_text2">CERTIFICATE OF</span></p>
+                                        <p><span class="tp_left_text1">ACHIEVEMENT</span></p>
+                                        <!-- </pre> -->
+                                    </div>
+                                    <img class="big-image" src="/assets/indosat/express/badges_teal_2.png" alt="Big Image">
+                                    <div class="form-content">
+                                        <h2 class="mid_text">This is to certify that</h2>
+                                        <div class="card-body">
+                                            <h1 id="recipientName" class="text-center mid_text1">{{$event->user->name}}</h1>
+                                            <p class="mid_text2 ">
+                                                for attending *<span id="courseName" class="mid_text_font">{{$event->event->name}}</span>* on *<span id="completionDate" class="mid_text_font">{{$event->event->date}}</span>*, led by guest speaker *<span id="SpeakrName" class="mid_text_font">{{$event->event->speaker_name}}</span>* conducted by LifeVitae.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="bottom-right">
+                                        <p class="b_right_text1 fw-bold">Priya Sengupta</p>
+                                        <div style="border-bottom: 2px solid #1C1C1C; margin: 8px; width:100%;"></div>
+                                        <p class="b_right_text">Founder & CEO, LifeVitae</p>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row m-2">
-                                <div class="col-lg-12">
-                                    <p class="date">Date:</p>
-                                    <p class="title">Title:</p>
+                                <div class="col-12">
+                                    <p class="date">Date: {{$event->event->date}}</p>
+                                    <p class="title">Title: {{$event->event->name}}</p>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-6">
                                     <div class="view-button">
-                                        <a href="" class="button-white">Preview</a>
+                                        <a href="{{route('indosat.certificate.preview',[$event->event_id,$event->indosat_user_id])}}" class="button-white">Preview</a>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-6">
                                     <div class="view-button">
-                                        <a href="" class="button-green">Download</a>
+                                        <a href="{{route('indosat.certificate.download',[$event->event_id,$event->indosat_user_id])}}" class="button-green">Download</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                     <div class="col-lg-6">
                         <div class="lock">
-                            <h3>Click here to unlock this certificate</h3>
-                            <i class="fa fa-lock fa-2xl" aria-hidden="true"></i>
                             <div class="box certi-img">
-                                <img src="/assets/indosat/express/certificate.png">
+                                <div class="certificate">
+                                    <img class="certificate-border" src="/assets/indosat/express/certificate.png" alt="Certificate Border 1">
+                                    <div class="top-left">
+                                        <!-- <pre> -->
+                                        <p><span class="tp_left_text">LIFEVITAE</span></p>
+                                        <p><span class="tp_left_text2">CERTIFICATE OF</span></p>
+                                        <p><span class="tp_left_text1">ACHIEVEMENT</span></p>
+                                        <!-- </pre> -->
+                                    </div>
+                                    <img class="big-image" src="/assets/indosat/express/badges_teal_2.png" alt="Big Image">
+                                    <div class="form-content">
+                                        <h2 class="mid_text">This is to certify that</h2>
+                                        <div class="card-body">
+                                            <h1 id="recipientName" class="text-center mid_text1">Name Surname</h1>
+                                            <p class="mid_text2 ">
+                                                for attending *<span id="courseName" class="mid_text_font">EVENT NAME - WEBINAR</span>* on *<span id="completionDate" class="mid_text_font">Event Date</span>*, led by guest speaker *<span id="SpeakrName" class="mid_text_font">SPEAKER NAME</span>* conducted by LifeVitae.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="bottom-right">
+                                        <p class="b_right_text1 fw-bold">Priya Sengupta</p>
+                                        <div style="border-bottom: 2px solid #1C1C1C; margin: 8px; width:100%;"></div>
+                                        <p class="b_right_text">Founder & CEO, LifeVitae</p>
+                                    </div>
+                                </div>
                                 <div class="row m-2">
-                                    <div class="col-lg-12">
+                                    <div class="col-12">
                                         <p class="date">Date:</p>
                                         <p class="title">Title:</p>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-6">
                                         <div class="view-button">
                                             <a href="" class="button-white">Preview</a>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-6">
                                         <div class="view-button">
                                             <a href="" class="button-green">Download</a>
                                         </div>
@@ -79,11 +129,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="lock-text">
+                            <h3>Click here to unlock this certificate</h3>
+                            <i class="fa fa-lock fa-2xl" aria-hidden="true"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-
     </div>
 </div>
 
@@ -91,7 +144,7 @@
 
 @push('js')
 <script>
-   
+
 </script>
 @endpush
 

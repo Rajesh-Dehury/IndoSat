@@ -47,4 +47,6 @@ Route::group(['middleware' => ['auth:indosat_user']], function () {
 
     // certificate
     Route::get('indosat/certificate', [CertificateController::class, 'certificate'])->name('indosat.certificate');
+    Route::get('indosat/certificate/{event_id}/{indosat_user_id}/preview', [CertificateController::class, 'preview'])->name('indosat.certificate.preview');
+    Route::get('indosat/certificate/{event_id}/{indosat_user_id}/download', [CertificateController::class, 'download'])->name('indosat.certificate.download');
 });

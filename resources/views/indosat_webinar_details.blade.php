@@ -74,7 +74,7 @@
                     <div id="carouselExampleControls_7" class="owl-carousel new-carousel-selected" data-ride="carousel">
                         @foreach($selected_events as $event)
                         @php
-                        preg_match('/https:\/\/[^\s]+/', $event->zoom_link, $urlMatches);
+                        preg_match('/https:\/\/[^\s]+/', $event->event->zoom_link, $urlMatches);
                         $zoomUrl = isset($urlMatches[0]) ? $urlMatches[0] : '';
 
                         $lastSlashPos = strrpos($zoomUrl, '/');
