@@ -10,6 +10,7 @@ class IndosatCertificate extends Model
 {
     use HasFactory;
     protected $table = 'indosat_certificate';
+    protected $guarded = ['id'];
 
     function user(): BelongsTo
     {
