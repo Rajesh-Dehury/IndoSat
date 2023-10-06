@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IndonesiaEvent;
 use App\Models\IndosatCertificate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,8 +20,9 @@ class CertificateController extends Controller
             $certificates = $user->userEvents;
             $user_certificates = IndosatCertificate::where('user_id', $user->id)->get();
         }
-        // dd($user_certificates, $certificates);
-        return view('indosat_certificate', compact('certificates', 'user_certificates'));
+        $user_certificate_event_ids = $user_certificates->pluck('event_id')->toArray();
+
+        return view('indosat_certificate', compact('certificates', 'user_certificates', 'user_certificate_event_ids'));
     }
 
     public function preview($event_id, $indosat_user_id)
@@ -48,8 +50,38 @@ class CertificateController extends Controller
             ->setOptions(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true, 'isRemoteEnabled' => true])
             ->setOption('images', true);
 
-        return $pdf->stream('certificate.pdf');
+        // return $pdf->stream('certificate.pdf');
 
-        // return $pdf->download('certificate.pdf');
+        return $pdf->download('certificate.pdf');
+    }
+
+    public function unlockCertificate(Request $request)
+    {
+        $user = Auth::guard('indosat_user')->user();
+        if (is_null($user)) {
+            return back();
+        }
+
+        $request->validate([
+            'event_id' => 'required',
+            'certificate_code' => 'required',
+        ]);
+
+        $event = IndonesiaEvent::find($request->event_id);
+        if ($event->certificate_code == $request->certificate_code) {
+
+            $existingCertificate = IndosatCertificate::where('event_id', $request->event_id)
+                ->where('user_id', $user->id)
+                ->first();
+
+            if (!$existingCertificate) {
+                IndosatCertificate::create([
+                    'event_id' => $request->event_id,
+                    'user_id' => $user->id,
+                ]);
+            }
+        }
+
+        return back();
     }
 }
