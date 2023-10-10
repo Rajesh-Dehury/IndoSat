@@ -8,6 +8,9 @@
         </a>
     </div>
     <div class="wui-content-main">
+        <style>
+            
+        </style>
 
         {{-- page content --}}
 
@@ -24,39 +27,40 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-4">
-                    <div class="col-lg-12">
-                        <div id="carouselExampleControls1" class="owl-carousel new-carousel-credit" data-ride="carousel" data-interval="false">
-                            <div class="item">
-                                <div class="box credits purple">
-                                    <span>Available Credits</span>
-                                    <h2>{{auth('indosat_user')->user()->getTotalAvailableCredits()}}</h2>
-                                    <img src="/assets/indosat/creditw.png">
-                                </div>
+                <div class="row mt-4 gap owl-carousel new-carousel-credit" id="carouselExampleControls1" data-ride="carousel" data-interval="false">
+                    <div class="col-sm-12 p-0">
+                        <div class="cred_box purple_bg">
+                            <div class="">
+                                <span class="d-block mb-2">Available Credits</span>
+                                <h2>{{auth('indosat_user')->user()->getTotalAvailableCredits()}}</h2>
+                                <img src="/assets/indosat/creditw.png" class="cred_img">
                             </div>
-                            <div class="item">
-                                <div class="box credits">
-                                    <span>Used Credits</span>
-                                    <h2>{{auth('indosat_user')->user()->getTotalAvailableCredits()}}</h2>
-                                    <img src="/assets/indosat/creditp.png">
-                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 p-0">
+                        <div class="cred_box">
+                            <div class="">
+                                <span class="d-block mb-2">Used Credits</span>
+                                <h2>{{auth('indosat_user')->user()->getTotalAvailableCredits()}}</h2>
+                                <img src="/assets/indosat/creditp.png" class="cred_img">
                             </div>
-                            <div class="item">
-                                <div class="box credits">
-                                    <span>Expired Credits</span>
-                                    <h2>{{auth('indosat_user')->user()->getTotalExpiryCredits()}}</h2>
-                                    <img src="/assets/indosat/creditp.png">
-                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 p-0">
+                        <div class="cred_box">
+                            <div class="">
+                                <span class="d-block mb-2">Expired Credits</span>
+                                <h2>{{auth('indosat_user')->user()->getTotalExpiryCredits()}}</h2>
+                                <img src="/assets/indosat/creditp.png" class="cred_img">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-lg-12">
-                        <div class="section-header">
-                            <h3>We have suggested these webinars for you
-                                <span class="all">See all</span>
-                            </h3>
+                        <div class="section-header row align-items-center">
+                            <h3 class="col-10">We have suggested these webinars for you</h3>
+                            <p class="col-2"><span class="all">See all</span></p>
                         </div>
                     </div>
                     <div class="col-lg-12">
@@ -135,7 +139,7 @@
                         @if($eventDate->greaterThanOrEqualTo($now))
                         <div class="item">
                             <div class="box web-img">
-                                <div class="web_sug_box upweb_sug_box">
+                                <div class="web_sug_box web_sug_box_list_2 upweb_sug_box">
                                     <span>Leadership</span>
                                 </div>
                                 <img src="/assets/indosat/rounded.png">
@@ -501,7 +505,7 @@
     $('.new-carousel-web').owlCarousel({
         responsive: {
             0: {
-                items: 2,
+                items: 1,
                 nav: true
             },
             600: {

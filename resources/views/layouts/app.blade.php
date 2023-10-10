@@ -74,6 +74,10 @@
                 };
                 var checkIfNeedToCloseMenu = function() {
                     var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                    if (width <= 1024 && htmlSideMenu.classList.contains('open') === true) {
+                        htmlSideMenu.classList.remove('open');
+                        menuStateChanged(htmlSideMenu, htmlSideMenu.classList.contains('open'));
+                    }
                     if (width <= 767 && htmlSideMenu.classList.contains('open') === true) {
                         htmlSideMenu.classList.remove('open');
                         menuStateChanged(htmlSideMenu, htmlSideMenu.classList.contains('open'));

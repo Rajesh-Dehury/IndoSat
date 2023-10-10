@@ -56,7 +56,7 @@
                                         </div>
                                         <div class="bottom-right">
                                             <p class="b_right_text1 fw-bold">Priya Sengupta</p>
-                                            <div style="border-bottom: 2px solid #1C1C1C; margin: 8px; width:100%;"></div>
+                                            <div style="border-bottom: 2px solid #1C1C1C; margin: 4px; width:100%;"></div>
                                             <p class="b_right_text">Founder & CEO, LifeVitae</p>
                                         </div>
                                     </div>

@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 px-0">
                         <div class="section-header">
                             <h3>Webinar Details</h3>
                         </div>
@@ -37,11 +37,11 @@
                         <img src="/assets/indosat/webinar_details.png">
                         <div class="date-box box1">
                             <i class="fa-solid fa-calendar-days"></i>
-                            <span>Date {{$details->date}}</span>
+                            <span>{{$details->date}}</span>
                         </div>
                         <div class="date-box box1">
                             <i class="fa-solid fa-clock"></i>
-                            <span>Time {{$details->time}}</span>
+                            <span>{{$details->time}}</span>
                         </div>
                         @php
                         preg_match('/https:\/\/[^\s]+/', $details->zoom_link, $urlMatches);
@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 px-0">
                         <div class="section-header">
                             <h3>Your selected webinars</h3>
                         </div>
@@ -88,7 +88,7 @@
                         @if($event->event->id != $details->id)
                         <div class="item">
                             <div class="box web-img">
-                                <div class="web_sug_box details_sug_box">
+                                <div class="web_sug_box web_sug_box_list details_sug_box">
                                     <span>Leadership</span>
                                 </div>
                                 <img src="/assets/indosat/webinar_selected.png">
@@ -107,10 +107,15 @@
                                         <br>Zoom ID: {{$meetingId}}
                                     </p>
                                 </div>
-                                <div class="info">Please join the Zoom meeting 10 minutes prior to the scheduled start time.
-                                    <span class="back-arrow">
-                                        <i class="fa-solid fa-circle-arrow-right"></i>
-                                    </span>
+                                <div class="row">
+                                    <div class="info col-10">
+                                        Please join the Zoom meeting 10 minutes prior to the scheduled start time.
+                                    </div>
+                                    <div class="col-2">
+                                        <span class="back-arrow">
+                                            <i class="fa-solid fa-circle-arrow-right"></i>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +124,7 @@
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 px-0">
                         <div class="section-header">
                             <h3>Previously participated in webinars.</h3>
                         </div>
@@ -181,7 +186,7 @@
     $('.new-carousel-previous').owlCarousel({
         responsive: {
             0: {
-                items: 2,
+                items: 1,
                 nav: true
             },
             600: {
