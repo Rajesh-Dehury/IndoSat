@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <div class="ellipsis-pos">
+                        <div class="ellipsis-pos" onclick="modalPreferences()">
                             <span data-tooltip="Update Preferences" data-tooltip-location="top">
                                 <i class="fa-solid fa-ellipsis-vertical fa-2xl"></i>
                             </span>
@@ -70,7 +70,9 @@
                             <div class="d-flex webinar_suggestions_list pl-2">
                                 <div id="{{\Str::slug('All')}}" data-id="{{\Str::slug('All')}}" class="web-main active">All</div>
                                 @foreach($webinar_categories as $cat)
+                                @if(in_array($cat->id, $user_webinar_categories_array))
                                 <div id="{{\Str::slug($cat->title)}}" data-id="{{\Str::slug($cat->title)}}" class="web-main">{{$cat->title}}</div>
+                                @endif
                                 @endforeach
                             </div>
                         </div>
@@ -291,88 +293,30 @@
 
                     <div class="modal-body">
                         <div class="modal-1">
-                            <div class="row">
-                                <div class="col-sm-12">
+                            <form method="POST" action="{{route('indosat.sync.preference')}}" class="row">
+                                @csrf
+                                <div class="col-sm-12 mb-3">
                                     <p class="lead" style="font-weight: normal;">Select the webinar topics you'd be interested in attending.</p>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group interest-section">
                                         <div class="re-design">
+                                            @foreach($webinar_categories as $cat)
                                             <div class="interest-widget">
-                                                <input type="checkbox" class="form-check-input" value="Personal Branding" name="interest" id="0Personal Branding">
-                                                <label for="0Personal Branding">
-                                                    <i class="fa-solid fa-plus" onclick="myfunction(this)"></i>
-                                                    Personal Branding
+                                                <input type="checkbox" class="form-check-input" value="{{$cat->id}}" name="interest[]" id="{{\Str::slug($cat->title)}}{{$cat->id}}" {{in_array($cat->id, $user_webinar_categories_array)?'checked':''}}>
+                                                <label for="{{\Str::slug($cat->title)}}{{$cat->id}}">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                    {{$cat->title}}
                                                 </label>
                                             </div>
-                                            <div class="interest-widget">
-                                                <input type="checkbox" class="form-check-input" value="Leadership" name="interest" id="1Leadership">
-                                                <label for="1Leadership">
-                                                    <i class="fa-solid fa-plus" onclick="myfunction(this)"></i>
-                                                    Leadership
-                                                </label>
-                                            </div>
-                                            <div class="interest-widget">
-                                                <input type="checkbox" class="form-check-input" value="Career Preparation" name="interest" id="3Career Preparation">
-                                                <label for="3Career Preparation"><i class="fa-solid fa-plus" onclick="myfunction(this)"></i>
-                                                    Career Preparation
-                                                </label>
-                                            </div>
-                                            <div class="interest-widget">
-                                                <input type="checkbox" class="form-check-input" value="Effective Communication" name="interest" id="4Effective Communication">
-                                                <label for="4Effective Communication"><i class="fa-solid fa-plus" onclick="myfunction(this)"></i>
-                                                    Effective Communication
-                                                </label>
-                                            </div>
-                                            <div class="interest-widget">
-                                                <input type="checkbox" class="form-check-input" value="College Preparation" name="interest" id="5College Preparation" checked="&quot;checked&quot;">
-                                                <label for="5College Preparation">
-                                                    <i class="fa-solid fa-plus" onclick="myfunction(this)"></i>
-                                                    College Preparation
-                                                </label>
-                                            </div>
-                                            <div class="interest-widget">
-                                                <input type="checkbox" class="form-check-input" value="Mental Well-Being" name="interest" id="6Mental Well-Being">
-                                                <label for="6Mental Well-Being">
-                                                    <i class="fa-solid fa-plus" onclick="myfunction(this)"></i>
-                                                    Mental Well-Being
-                                                </label>
-                                            </div>
-                                            <div class="interest-widget">
-                                                <input type="checkbox" class="form-check-input" value="Management" name="interest" id="7Management">
-                                                <label for="7Management">
-                                                    <i class="fa-solid fa-plus" onclick="myfunction(this)"></i>
-                                                    Management
-                                                </label>
-                                            </div>
-                                            <div class="interest-widget">
-                                                <input type="checkbox" class="form-check-input" value="Career Talks" name="interest" id="8Career Talks" checked="&quot;checked&quot;">
-                                                <label for="8Career Talks">
-                                                    <i class="fa-solid fa-plus" onclick="myfunction(this)"></i>
-                                                    Career Talks
-                                                </label>
-                                            </div>
-                                            <div class="interest-widget">
-                                                <input type="checkbox" class="form-check-input" value="Self-Development" name="interest" id="9Self-Development" checked="&quot;checked&quot;">
-                                                <label for="9Self-Development">
-                                                    <i class="fa-solid fa-plus" onclick="myfunction(this)"></i>
-                                                    Self-Development
-                                                </label>
-                                            </div>
-                                            <div class="interest-widget">
-                                                <input type="checkbox" class="form-check-input" value="Language Proficiency" name="interest" id="10Language Proficiency">
-                                                <label for="10Language Proficiency">
-                                                    <i class="fa-solid fa-plus" onclick="myfunction(this)"></i>
-                                                    Language Proficiency
-                                                </label>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <a class="button-green" href="#">Save</a>
+                                    <button class="button-green btn btn-block">Save</button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -546,19 +490,26 @@
     }
 </script>
 <script>
-    var modal3 = document.getElementById("interestModal");
-    var btn3 = document.getElementById("interestBtn");
-    var span3 = document.getElementsByClassName("closeInterestModal")[0];
-    btn3.onclick = function() {
-        modal3.style.display = "block";
+    var interestModal = document.getElementById("interestModal");
+    var interestBtn = document.getElementById("interestBtn");
+    var closeInterestModal = document.getElementsByClassName("closeInterestModal")[0];
+    interestBtn.onclick = function() {
+        interestModal.style.display = "block";
     }
-    span3.onclick = function() {
-        modal3.style.display = "none";
+    closeInterestModal.onclick = function() {
+        interestModal.style.display = "none";
     }
     window.onclick = function(event) {
-        if (event.target == modal3) {
-            modal3.style.display = "none";
+        if (event.target == interestModal) {
+            interestModal.style.display = "none";
         }
+    }
+    @if(session()->has('popup'))
+    modalPreferences()
+    @endif
+
+    function modalPreferences() {
+        interestModal.style.display = "block";
     }
 </script>
 

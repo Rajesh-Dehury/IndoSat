@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class UserWebinarPreference extends Model
 {
     use HasFactory;
-    protected $table = 'user_webinar_preference';
+    protected $guarded = ['id'];
+    protected $table = 'user_webinar_preference';   
+    public $timestamps = false;
 
     function webinarCategory(): BelongsTo
     {

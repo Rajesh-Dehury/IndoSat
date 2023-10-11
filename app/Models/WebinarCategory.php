@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class WebinarCategory extends Model
 {
     use HasFactory;
-    protected $table = 'webinar_category';
+        protected $table = 'webinar_category';
 }

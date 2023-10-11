@@ -6,6 +6,7 @@ use App\Models\IndonesiaEvent;
 use App\Models\IndosatEventUser;
 use App\Models\IndosatUser;
 use App\Models\IndosatUsersCredit;
+use App\Models\UserWebinarPreference;
 use App\Models\WebinarCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -61,7 +62,7 @@ class IndosatAuthController extends Controller
         );
 
         if (Auth::guard('indosat_user')->loginUsingId($indosatUser->id)) {
-            return redirect()->route('indosat.webinar');
+            return redirect()->route('indosat.webinar')->with('popup', true);
         }
 
         return redirect()->back();
@@ -84,8 +85,9 @@ class IndosatAuthController extends Controller
             $signed_up_events = $user->userEvents;
         }
         $webinar_categories = WebinarCategory::all();
+        $user_webinar_categories_array = $user->webinarPreferences->pluck('webinar_category_id')->toArray();
         $credits = IndosatUsersCredit::where('user_id', $user->id)->get();
-        return view('indosat_webinar', compact('events', 'signed_up_events', 'credits', 'webinar_categories'));
+        return view('indosat_webinar', compact('events', 'signed_up_events', 'credits', 'webinar_categories', 'user_webinar_categories_array'));
     }
     public function webinarDetails($id)
     {
@@ -151,5 +153,30 @@ class IndosatAuthController extends Controller
             ]);
         }
         return back();
+    }
+
+    public function syncPreference(Request $request)
+    {
+        if (Auth::guard('indosat_user')->check()) {
+            $user = Auth::guard('indosat_user')->user();
+
+            $request->validate([
+                'interest' => 'required|array',
+            ]);
+
+            UserWebinarPreference::where('user_id', $user->id)->delete();
+
+            foreach ($request->interest as $interest) {
+                UserWebinarPreference::create([
+                    'user_id' => $user->id,
+                    'webinar_category_id' => $interest,
+                    'created_at' => now(),
+                ]);
+            }
+
+            return back()->with('success', 'Webinar preferences updated successfully');
+        }
+
+        return back()->with('error', 'User is not authenticated');
     }
 }
