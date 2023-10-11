@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class IndosatEventUser extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
     protected $table = 'indosat_event_user';
 
     function event(): BelongsTo

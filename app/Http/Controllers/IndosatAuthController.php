@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\IndonesiaEvent;
+use App\Models\IndosatEventUser;
 use App\Models\IndosatUser;
 use App\Models\IndosatUsersCredit;
+use App\Models\WebinarCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -81,9 +83,9 @@ class IndosatAuthController extends Controller
         if ($user) {
             $signed_up_events = $user->userEvents;
         }
-
+        $webinar_categories = WebinarCategory::all();
         $credits = IndosatUsersCredit::where('user_id', $user->id)->get();
-        return view('indosat_webinar', compact('events', 'signed_up_events', 'credits'));
+        return view('indosat_webinar', compact('events', 'signed_up_events', 'credits', 'webinar_categories'));
     }
     public function webinarDetails($id)
     {
@@ -117,5 +119,37 @@ class IndosatAuthController extends Controller
                 ->whereYear('created_at', $selectedYear)
                 ->get();
         }
+    }
+
+    public function werbinarConfirm(Request $request)
+    {
+        $user = Auth::guard('indosat_user')->user();
+        if (is_null($user)) {
+            return back();
+        }
+
+        $request->validate([
+            'event_id' => 'required',
+        ]);
+
+        $event = IndonesiaEvent::find($request->event_id);
+
+        $existingEvent = IndosatEventUser::where('event_id', $request->event_id)
+            ->where('indosat_user_id', $user->id)
+            ->first();
+
+        if (!$existingEvent) {
+            IndosatEventUser::create([
+                'name' => $user->name,
+                'email' => $user->email,
+                'contact_number' => $user->contact_number,
+                'indosat_user_id' => $user->id,
+                'event_id' => $request->event_id,
+                'event_name' => $event->name,
+                'event_slug' => $event->url,
+                'is_payment' => 0,
+            ]);
+        }
+        return back();
     }
 }

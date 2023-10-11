@@ -8,9 +8,6 @@
         </a>
     </div>
     <div class="wui-content-main">
-        <style>
-            
-        </style>
 
         {{-- page content --}}
 
@@ -65,58 +62,29 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="ellipsis-pos">
-                            <span data-tooltip="  Update Preferences" data-tooltip-location="top">
+                            <span data-tooltip="Update Preferences" data-tooltip-location="top">
                                 <i class="fa-solid fa-ellipsis-vertical fa-2xl"></i>
                             </span>
                         </div>
                         <div class="webinar_suggestions">
-                            <div id="carouselExampleControls2" class="owl-carousel new-carousel-suggestions">
-                                <div class="item">
-                                    <div id="high_web" data-id="" class="web-main active">All</div>
-                                </div>
-                                <div class="item">
-                                    <div id="high_web" data-id="" class="web-main">Personal Branding</div>
-                                </div>
-                                <div class="item">
-                                    <div id="high_web" data-id="" class="web-main">Mental Well-Being</div>
-                                </div>
-                                <div class="item">
-                                    <div id="high_web" data-id="" class="web-main">Self-Development</div>
-                                </div>
-                                <div class="item">
-                                    <div id="high_web" data-id="" class="web-main">Effective Communication</div>
-                                </div>
-                                <div class="item">
-                                    <div id="high_web" data-id="" class="web-main">Career Preparation</div>
-                                </div>
-                                <div class="item">
-                                    <div id="high_web" data-id="" class="web-main">Leadership</div>
-                                </div>
-                                <div class="item">
-                                    <div id="high_web" data-id="" class="web-main">Management</div>
-                                </div>
-                                <div class="item">
-                                    <div id="high_web" data-id="" class="web-main">Career Talks</div>
-                                </div>
-                                <div class="item">
-                                    <div id="high_web" data-id="" class="web-main">College Preparation</div>
-                                </div>
-                                <div class="item">
-                                    <div id="high_web" data-id="" class="web-main">Language Proficiency</div>
-                                </div>
+                            <div class="d-flex webinar_suggestions_list pl-2">
+                                <div id="{{\Str::slug('All')}}" data-id="{{\Str::slug('All')}}" class="web-main active">All</div>
+                                @foreach($webinar_categories as $cat)
+                                <div id="{{\Str::slug($cat->title)}}" data-id="{{\Str::slug($cat->title)}}" class="web-main">{{$cat->title}}</div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <div id="carouselExampleControls3" class="owl-carousel new-carousel-web" data-ride="carousel">
                             @foreach($events as $event)
-                            <div class="item">
+                            <div class="itemBox {{\Str::slug($event->webinarCategory->title)}}">
                                 <div class="box web-img">
                                     <div class="web_sug_box">
-                                        <span>Leadership</span>
+                                        <span>{{$event->webinarCategory->title}}</span>
                                     </div>
-                                    <img src="/assets/indosat/webinar_rec.png" id="confirmBtn">
-                                    <p>{{Str::limit($event->name, $limit = 20, $end = '...')}}</p>
+                                    <img src="{{asset('assets/indosat/webinar_rec.png')}}" onclick="openConfirmModal({{$event->id}}, '{{$event->name}}')">
+                                    <p>{{$event->name}}</p>
                                 </div>
                             </div>
                             @endforeach
@@ -290,22 +258,24 @@
 
                     <div class="modal-body">
                         <div class="modal-1">
-                            <div class="row">
+                            <form method="POST" action="{{route('indosat.webinar.confirm')}}" class="row">
+                                @csrf
+                                <input type="hidden" id="event_id" name="event_id">
                                 <div class="col-sm-12">
                                     <div style="width: 200px; margin: 10px auto;">
                                         <img style="width: 100%;" src="/assets/indosat/popup_confirm_webinar.png">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p class="lead">You have selected Webinar: [Title].</p>
+                                    <p class="lead">You have selected Webinar: <span id="webinarTitle"></span></p>
                                 </div>
                                 <div class="col-sm-6">
-                                    <a class="button-white" href="#">Cancel</a>
+                                    <p class="button-white btn btn-block closeCM">Cancel</p>
                                 </div>
                                 <div class="col-sm-6">
-                                    <a class="button-green" href="#">Proceed</a>
+                                    <button class="button-green btn btn-block">Proceed</button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -502,26 +472,6 @@
         navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
     })
 
-    $('.new-carousel-web').owlCarousel({
-        responsive: {
-            0: {
-                items: 1,
-                nav: true
-            },
-            600: {
-                items: 3,
-                nav: false
-            },
-            1000: {
-                items: 4,
-                nav: false
-            }
-        },
-        margin: 40,
-        nav: true,
-        navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
-    })
-
     $('.new-carousel-web2').owlCarousel({
         responsive: {
             0: {
@@ -542,10 +492,10 @@
         navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
     })
 
-    $('.new-carousel-suggestions').owlCarousel({
-        loop: true,
-        autoWidth: true,
-    })
+    // $('.new-carousel-suggestions').owlCarousel({
+    //     loop: true,
+    //     autoWidth: true,
+    // })
 
     // $(function() {
     //     $('#datepicker').datepicker();
@@ -570,19 +520,29 @@
     }
 </script>
 <script>
-    var modal2 = document.getElementById("confirmModal");
-    var btn2 = document.getElementById("confirmBtn");
-    var span2 = document.getElementsByClassName("closeConfirmModal")[0];
-    btn2.onclick = function() {
-        modal2.style.display = "block";
+    var confirmModal = document.getElementById("confirmModal");
+    var closeBtn = document.querySelector(".closeConfirmModal");
+    var closeCM = document.querySelector(".closeCM");
+    var webinarTitleElement = document.getElementById("webinarTitle");
+    var eventIdInput = document.getElementById("event_id");
+
+    closeBtn.onclick = function() {
+        confirmModal.style.display = "none";
     }
-    span2.onclick = function() {
-        modal2.style.display = "none";
+    closeCM.onclick = function() {
+        confirmModal.style.display = "none";
     }
+
     window.onclick = function(event) {
-        if (event.target == modal2) {
-            modal2.style.display = "none";
+        if (event.target == confirmModal) {
+            confirmModal.style.display = "none";
         }
+    }
+
+    function openConfirmModal(event_id, title) {
+        eventIdInput.value = event_id;
+        webinarTitleElement.textContent = title;
+        confirmModal.style.display = "block";
     }
 </script>
 <script>
@@ -605,6 +565,54 @@
 {{-- icon toggle script --}}
 <script>
     myfunction = (icon) => icon.classList.toggle('fa-check')
+</script>
+
+<!-- Suggest filter -->
+<script>
+    $(document).ready(function() {
+        var owl = $('.new-carousel-web');
+
+        function initializeCarousel() {
+            owl.owlCarousel({
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: true
+                    },
+                    600: {
+                        items: 3,
+                        nav: false
+                    },
+                    1000: {
+                        items: 4,
+                        nav: false
+                    }
+                },
+                margin: 40,
+                nav: true,
+                navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
+            });
+        }
+
+        initializeCarousel();
+
+        $(".web-main").click(function() {
+
+            $(this).addClass("active").siblings().removeClass("active");
+
+            const value = $(this).attr("data-id");
+
+            if (value == 'all') {
+                $(".itemBox").show('1000');
+            } else {
+                $(".itemBox").not('.' + value).hide('1000');
+                $(".itemBox").filter('.' + value).show('1000');
+            }
+
+            owl.trigger('destroy.owl.carousel');
+            initializeCarousel();
+        })
+    })
 </script>
 @endpush
 

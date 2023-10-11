@@ -71,4 +71,9 @@ class IndosatUser extends Authenticatable
     {
         return $this->hasMany(IndosatEventUser::class, 'indosat_user_id', 'id');
     }
+
+    function webinarPreferences(): HasMany
+    {
+        return $this->hasMany(UserWebinarPreference::class, 'user_id', 'id');
+    }
 }
