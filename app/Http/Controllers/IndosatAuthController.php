@@ -6,6 +6,7 @@ use App\Models\IndonesiaEvent;
 use App\Models\IndosatEventUser;
 use App\Models\IndosatUser;
 use App\Models\IndosatUsersCredit;
+use App\Models\IndosatUsersUsedCredit;
 use App\Models\UserWebinarPreference;
 use App\Models\WebinarCategory;
 use Illuminate\Http\Request;
@@ -87,7 +88,16 @@ class IndosatAuthController extends Controller
         $webinar_categories = WebinarCategory::all();
         $user_webinar_categories_array = $user->webinarPreferences->pluck('webinar_category_id')->toArray();
         $credits = IndosatUsersCredit::where('user_id', $user->id)->get();
-        return view('indosat_webinar', compact('events', 'signed_up_events', 'credits', 'webinar_categories', 'user_webinar_categories_array'));
+        $used_credits = IndosatUsersUsedCredit::where('user_id', $user->id)->sum('credit');
+        $total_credits = $user->getTotalUserCredits();
+        $exp_credits = $user->getTotalExpiryCredits();
+        $available_credits = ($total_credits - $used_credits) - $exp_credits;
+
+        if ($available_credits < 0) {
+            $available_credits = 0;
+        }
+
+        return view('indosat_webinar', compact('events', 'signed_up_events', 'credits', 'webinar_categories', 'user_webinar_categories_array', 'used_credits', 'available_credits', 'exp_credits'));
     }
     public function webinarDetails($id)
     {
@@ -140,17 +150,31 @@ class IndosatAuthController extends Controller
             ->where('indosat_user_id', $user->id)
             ->first();
 
-        if (!$existingEvent) {
-            IndosatEventUser::create([
-                'name' => $user->name,
-                'email' => $user->email,
-                'contact_number' => $user->contact_number,
-                'indosat_user_id' => $user->id,
-                'event_id' => $request->event_id,
-                'event_name' => $event->name,
-                'event_slug' => $event->url,
-                'is_payment' => 0,
-            ]);
+        $used_credits = IndosatUsersUsedCredit::where('user_id', $user->id)->sum('credit');
+        $total_credits = $user->getTotalUserCredits();
+        $exp_credits = $user->getTotalExpiryCredits();
+        $available_credits = ($total_credits - $used_credits) - $exp_credits;
+
+        if ($available_credits > 0) {
+            if (!$existingEvent) {
+
+                IndosatEventUser::create([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'contact_number' => $user->contact_number,
+                    'indosat_user_id' => $user->id,
+                    'event_id' => $request->event_id,
+                    'event_name' => $event->name,
+                    'event_slug' => $event->url,
+                    'is_payment' => 0,
+                ]);
+
+                IndosatUsersUsedCredit::create([
+                    'user_id' => $user->id,
+                    'credit' => 1,
+                    'type' => 1,
+                ]);
+            }
         }
         return back();
     }

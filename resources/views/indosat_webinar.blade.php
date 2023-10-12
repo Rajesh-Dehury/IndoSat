@@ -29,7 +29,7 @@
                         <div class="cred_box purple_bg">
                             <div class="">
                                 <span class="d-block mb-2">Available Credits</span>
-                                <h2>{{auth('indosat_user')->user()->getTotalAvailableCredits()}}</h2>
+                                <h2>{{$available_credits}}</h2>
                                 <img src="/assets/indosat/creditw.png" class="cred_img">
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                         <div class="cred_box">
                             <div class="">
                                 <span class="d-block mb-2">Used Credits</span>
-                                <h2>{{auth('indosat_user')->user()->getTotalAvailableCredits()}}</h2>
+                                <h2>{{$used_credits}}</h2>
                                 <img src="/assets/indosat/creditp.png" class="cred_img">
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                         <div class="cred_box">
                             <div class="">
                                 <span class="d-block mb-2">Expired Credits</span>
-                                <h2>{{auth('indosat_user')->user()->getTotalExpiryCredits()}}</h2>
+                                <h2>{{$exp_credits}}</h2>
                                 <img src="/assets/indosat/creditp.png" class="cred_img">
                             </div>
                         </div>

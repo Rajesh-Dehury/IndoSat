@@ -47,24 +47,12 @@ class IndosatUser extends Authenticatable
 
     public function getTotalUserCredits()
     {
-        return $this->credits->filter(function ($credit) {
-            return $credit->credit > 0;
-        })->sum('credit');
+        return $this->credits->sum('credit');
     }
 
     public function getTotalExpiryCredits()
     {
         return $this->credits->where('expired', '<=', now())->sum('credit');
-    }
-
-    public function getTotalAvailableCredits()
-    {
-        $totalUserCredits = $this->getTotalUserCredits();
-        $totalExpiryCredits = $this->getTotalExpiryCredits();
-
-        $availableCredits = max($totalUserCredits - $totalExpiryCredits, 0);
-
-        return $availableCredits;
     }
 
     function userEvents(): HasMany
