@@ -78,18 +78,20 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <div id="carouselExampleControls3" class="owl-carousel new-carousel-web" data-ride="carousel">
-                            @foreach($events as $event)
-                            <div class="itemBox {{\Str::slug($event->webinarCategory->title)}}">
-                                <div class="box web-img">
-                                    <div class="web_sug_box">
-                                        <span>{{$event->webinarCategory->title}}</span>
+                        <div id="carouselExampleControls3" class="" style="overflow: hidden;">
+                            <div class="d-flex webinar_suggestions_list">
+                                @foreach($events as $event)
+                                <div class="itemBox col-12 col-sm-6 col-md-3 {{\Str::slug($event->webinarCategory->title)}}">
+                                    <div class="box web-img">
+                                        <div class="web_sug_box">
+                                            <span>{{$event->webinarCategory->title}}</span>
+                                        </div>
+                                        <img src="{{asset('assets/indosat/webinar_rec.png')}}" onclick="openConfirmModal({{$event->id}}, '{{$event->name}}')">
+                                        <p>{{$event->name}}</p>
                                     </div>
-                                    <img src="{{asset('assets/indosat/webinar_rec.png')}}" onclick="openConfirmModal({{$event->id}}, '{{$event->name}}')">
-                                    <p>{{$event->name}}</p>
                                 </div>
+                                @endforeach
                             </div>
-                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -335,8 +337,7 @@
         var creditList = $('#credit-list');
         creditList.empty();
 
-        $.each(data, function(index, credit) {
-            var creditTypeClass = credit.credit < 0 ? 'credmin' : 'credmax';
+        $.each(data.credit_data, function(index, credit) {
 
             var createdAtDate = new Date(credit.created_at);
 
@@ -357,7 +358,35 @@
                 '<div class="sum-last mt-2">' +
                 '<div class="pink-grad"></div>' +
                 '<p class="pt-2 pl-2">Package Purchased: [' + credit.package_name + '] <br><span class="date">' + formattedDate + '</span></p>' +
-                '<p class="' + creditTypeClass + '">' + credit.credit + ' Credit</p>' +
+                '<p class="credmax">' + credit.credit + ' Credit</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+            creditList.append(html);
+        });
+
+        $.each(data.used_credit_data, function(index, credit) {
+
+            var createdAtDate = new Date(credit.created_at);
+
+            var day = createdAtDate.getDate();
+            var monthIndex = createdAtDate.getMonth();
+            var year = createdAtDate.getFullYear();
+
+            var monthNames = [
+                "Jan", "Feb", "Mar", "Apr",
+                "May", "Jun", "Jul", "Aug",
+                "Sep", "Oct", "Nov", "Dec"
+            ];
+
+            var formattedDate = day + "-" + monthNames[monthIndex] + "-" + year;
+
+            var html = '<div class="row">' +
+                '<div class="col-lg-12">' +
+                '<div class="sum-last mt-2">' +
+                '<div class="pink-grad"></div>' +
+                '<p class="pt-2 pl-2">Package Purchased <br><span class="date">' + formattedDate + '</span></p>' +
+                '<p class="credmin"> -' + credit.credit + ' Credit</p>' +
                 '</div>' +
                 '</div>' +
                 '</div>';
@@ -504,9 +533,9 @@
             interestModal.style.display = "none";
         }
     }
-    @if(session()->has('popup'))
+    "@if(session()-> has('popup'))
     modalPreferences()
-    @endif
+    @endif"
 
     function modalPreferences() {
         interestModal.style.display = "block";

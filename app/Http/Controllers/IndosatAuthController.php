@@ -114,23 +114,54 @@ class IndosatAuthController extends Controller
         return view('indosat_webinar_details', compact('details', 'selected_events', 'previous_events'));
     }
 
+    // public function filterCreditAjax(Request $request)
+    // {
+    //     $userId = auth('indosat_user')->user()->id;
+    //     $month = $request->input('month');
+
+    //     if ($month == null) {
+    //         return IndosatUsersCredit::where('user_id', $userId)->get();
+    //     } else {
+    //         $date = \Carbon\Carbon::createFromFormat('Y-m', $month);
+    //         $selectedMonth = $date->format('m');
+    //         $selectedYear = $date->format('Y');
+
+    //         return IndosatUsersCredit::where('user_id', $userId)
+    //             ->whereMonth('created_at', $selectedMonth)
+    //             ->whereYear('created_at', $selectedYear)
+    //             ->get();
+    //     }
+    // }
+
     public function filterCreditAjax(Request $request)
     {
         $userId = auth('indosat_user')->user()->id;
         $month = $request->input('month');
 
         if ($month == null) {
-            return IndosatUsersCredit::where('user_id', $userId)->get();
+            $creditData = IndosatUsersCredit::where('user_id', $userId)->get();
+            $usedCreditData = IndosatUsersUsedCredit::where('user_id', $userId)->get();
         } else {
             $date = \Carbon\Carbon::createFromFormat('Y-m', $month);
             $selectedMonth = $date->format('m');
             $selectedYear = $date->format('Y');
 
-            return IndosatUsersCredit::where('user_id', $userId)
+            $creditData = IndosatUsersCredit::where('user_id', $userId)
+                ->whereMonth('created_at', $selectedMonth)
+                ->whereYear('created_at', $selectedYear)
+                ->get();
+            $usedCreditData = IndosatUsersUsedCredit::where('user_id', $userId)
                 ->whereMonth('created_at', $selectedMonth)
                 ->whereYear('created_at', $selectedYear)
                 ->get();
         }
+
+        $combinedData = [
+            'credit_data' => $creditData,
+            'used_credit_data' => $usedCreditData,
+        ];
+
+        return response()->json($combinedData);
     }
 
     public function werbinarConfirm(Request $request)
