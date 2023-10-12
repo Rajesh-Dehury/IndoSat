@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     @foreach($certificates as $event)
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 mb-5">
                         <div class="{{in_array($event->event->id, $user_certificate_event_ids)?'':'lock'}}">
                             <div class="box certi-img">
                                 <div class="container">
@@ -64,7 +64,7 @@
                                 <div class="row m-2">
                                     <div class="col-12">
                                         <p class="date">Date: {{$event->event->date}}</p>
-                                        <p class="title">Title: {{$event->event->name}}</p>
+                                        <p class="title">Title: {{\Str::limit($event->event->name,40)}}</p>
                                     </div>
                                 </div>
                                 <div class="row">
