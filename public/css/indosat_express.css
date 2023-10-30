@@ -1,111 +1,142 @@
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) { 
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
     .para1 {
         margin-top: 1rem !important;
     }
+
     .express-section-bg {
         margin-top: 0 !important;
         margin-left: 0 !important;
     }
+
     #desktop-landing {
         display: none !important;
     }
+
     #mobile-landing {
         display: block !important;
     }
+
     .welcome-text-express {
         text-align: center !important;
     }
+
     .rocket-img-mob {
         margin: 0;
         width: 90%;
     }
+
     .in-people {
         width: 60% !important;
     }
+
     .instructions-text {
         padding: 0 1rem !important;
     }
+
     .success-img {
         width: 65% !important;
     }
+
     .report-people {
         width: 45% !important;
     }
+
     .scratch-right {
         margin: 1rem !important;
     }
+
     #desktop-scratch {
         display: none !important;
     }
+
     #mobile-scratch {
         display: block !important;
     }
+
     #mobile-scratch .report-section {
         margin-top: 2rem !important;
         padding: 5px !important;
     }
+
     #mobile-scratch p {
         font-size: 20px !important;
         font-weight: 700 !important;
         margin: 1rem !important;
     }
+
     #mobile-scratch .girl-img {
         width: 50%;
         margin: 1rem;
     }
+
     .entercode-section {
         margin-top: -4rem !important;
     }
 }
-@media (min-width: 768px) and (max-width: 1024px){ 
+
+@media (min-width: 768px) and (max-width: 1024px) {
     .para1 {
         margin-top: 1rem !important;
     }
+
     .express-section-bg {
         margin-top: 0 !important;
         margin-left: 0 !important;
     }
+
     #desktop-landing {
         display: block !important;
     }
+
     #mobile-landing {
         display: none !important;
     }
+
     .rocket-img {
         margin: 2rem 0 !important;
     }
+
     .success-img {
         width: 60% !important;
     }
+
     .report-people {
         width: 100% !important;
     }
+
     #desktop-scratch {
         display: block !important;
     }
+
     #mobile-scratch {
         display: none !important;
     }
 }
+
 .section-header h4 {
     font-size: 28px;
     padding: 1rem 0 0;
     font-weight: 700;
 }
+
 .section-header p {
     font-size: 18px;
 }
+
 .font-purple {
     color: #8950E1;
 }
+
 .para1 {
     margin-top: 4rem;
     font-size: 20px;
 }
-.steps p{
+
+.steps p {
     font-size: 18px;
     font-weight: 700;
 }
+
 .closeNoCreditModal {
     color: #ffffff;
     float: right;
@@ -119,18 +150,21 @@
     background-color: #40c1c4;
     width: 40px;
 }
+
 .closeNoCreditModal:hover,
 .closeNoCreditModal:focus {
     color: #999999;
     text-decoration: none;
     cursor: pointer;
 }
+
 .popup-p {
     font-weight: 400;
     color: #3A3A3A;
     text-align: center;
     font-size: 18px;
 }
+
 .express-section-bg {
     background-color: #F3EDFB;
     padding: 60px 0 0;
@@ -138,25 +172,31 @@
     margin-top: 2rem;
     margin-left: 2rem;
 }
+
 #desktop-landing {
     display: block;
 }
+
 #mobile-landing {
     display: none;
 }
+
 .welcome-text-express {
     text-align: left;
     margin: 2rem 0;
 }
+
 .rocket-img {
     margin: -5rem 0;
 }
+
 .age-group-section {
     background-color: #8950E11A;
     padding: 60px 5px;
     border-radius: 20px;
     margin-top: 5rem;
 }
+
 #agegroup-form label {
     position: relative;
     top: 0;
@@ -165,11 +205,13 @@
     font-size: 16px;
     background-color: transparent;
 }
+
 #agegroup-form .control-label {
     font-size: 18px;
     font-weight: 700;
     margin-left: 1rem;
 }
+
 #agegroup-form .back {
     width: 95%;
     background-color: white;
@@ -178,15 +220,19 @@
     margin: 1rem;
     height: 35px;
 }
+
 #agegroup-form .form-check-input {
     width: auto;
     position: absolute;
     margin-top: 0.3rem;
     margin-left: 0.75rem;
 }
-#agegroup-form input[type="radio"], input[type="checkbox"]  {
+
+#agegroup-form input[type="radio"],
+input[type="checkbox"] {
     background-color: #8950E1;
 }
+
 #agegroup-form .error {
     font-weight: 600;
     line-height: 1.71;
@@ -194,26 +240,31 @@
     color: #EC6B59;
     text-align: left;
 }
+
 .instructions-section {
     background-color: #8950E11A;
     padding: 60px 5px;
     border-radius: 20px;
     margin-top: -4rem;
 }
+
 .sofa {
     width: 35%;
     position: absolute;
     top: 8%;
     left: 60%;
 }
+
 .in-people {
     width: 45%;
 }
+
 .instructions-text {
     text-align: center;
     font-size: 16px;
     padding: 0 6rem;
 }
+
 .closeWarningModal {
     color: #ffffff;
     float: right;
@@ -227,42 +278,52 @@
     background-color: #40c1c4;
     width: 40px;
 }
+
 .closeWarningModal:hover,
 .closeWarningModal:focus {
     color: #999999;
     text-decoration: none;
     cursor: pointer;
 }
+
 .report-section {
     background-color: #8950E11A;
     padding: 60px 5px;
     border-radius: 20px;
     margin-top: -60px;
 }
+
 .report-people {
     margin-top: 2rem;
 }
+
 #desktop-scratch {
     display: block;
 }
+
 #mobile-scratch {
     display: none;
 }
+
 .scratch-left {
     text-align: center;
 }
+
 #desktop-scratch p {
     font-size: 20px;
     font-weight: 700;
     margin: 2rem;
 }
+
 .scratch-right {
     text-align: center;
     margin: 4rem;
 }
+
 .scratch-right img {
     cursor: pointer;
 }
+
 .scratch-box {
     width: 100%;
     height: 350px;
@@ -275,26 +336,32 @@
     color: #3A3A3A;
     margin-top: 6rem;
 }
+
 .emoji {
     margin-top: 4rem;
 }
-.certi-img img{
+
+.certi-img img {
     /* width: 100%; */
     border-radius: 20px;
     /* border: 1px solid #B7B7B7; */
 }
+
 .certi-img .date {
     font-size: 14px;
     font-weight: 600;
 }
+
 .certi-img .title {
     font-size: 18px;
     font-weight: 600;
 }
+
 .lock {
     filter: brightness(0.5);
 }
-.lock-text h3{
+
+.lock-text h3 {
     color: #ffffff;
     font-weight: 700;
     position: absolute;
@@ -306,25 +373,29 @@
     padding: 20px;
     text-align: center;
 }
+
 .lock-text i {
     position: absolute;
     top: 15%;
     right: 10%;
     color: #ffffff;
 }
+
 .entercode-section {
     background-color: #8950E11A;
     padding: 60px 5px;
     border-radius: 20px;
     margin-top: 2rem;
 }
-.entercode-section .para{
+
+.entercode-section .para {
     font-size: 18px;
     font-weight: 400;
     color: #000000;
     text-align: center;
     margin: 2rem;
 }
+
 .box_purple {
     position: absolute;
     top: 40%;
@@ -337,6 +408,7 @@
     margin: 0.5rem 1rem 0.5rem 0rem;
     font-size: 14px;
 }
+
 .entercode-section label {
     position: initial;
     background-color: transparent;
@@ -344,16 +416,17 @@
     font-size: 18px;
     font-weight: 700;
 }
+
 .button-purple {
     background: #8950E1;
     color: #fff !important;
     border-radius: 10px;
     display: block;
-    font-weight: bold;  
+    font-weight: bold;
     font-size: 15px;
-    padding: 8px; 
-    width: 100px; 
-    height: calc(1.5em + 0.75rem + 3px); 
+    padding: 8px;
+    width: 100px;
+    height: calc(1.5em + 0.75rem + 3px);
     margin: 2rem;
 }
 
@@ -370,9 +443,75 @@
     background-color: #40c1c4;
     width: 40px;
 }
+
 .closeNoWebinarCreditModal:hover,
 .closeNoWebinarCreditModal:focus {
     color: #999999;
     text-decoration: none;
     cursor: pointer;
+}
+
+
+.closeupgradeAdvanceModal {
+    color: #ffffff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    border-radius: 22px;
+    height: 40px;
+    background-color: #40c1c4;
+    width: 40px;
+}
+
+.closeupgradeAdvanceModal:hover,
+.closeupgradeAdvanceModal:focus {
+    color: #999999;
+    text-decoration: none;
+    cursor: pointer;
+}
+.closedeductCreditModal {
+    color: #ffffff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    border-radius: 22px;
+    height: 40px;
+    background-color: #40c1c4;
+    width: 40px;
+}
+
+.closedeductCreditModal:hover,
+.closedeductCreditModal:focus {
+    color: #999999;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.popup-congratulations {
+    color: #40C4C1;
+}
+
+.left-align {
+    text-align: left;
+}
+
+.purple-text {
+    color: #8950E1;
+    text-align: center;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+
+    .left-align,
+    .popup-congratulations,
+    .confirm,
+    .purple-text {
+        font-size: 0.8rem;
+    }
 }
