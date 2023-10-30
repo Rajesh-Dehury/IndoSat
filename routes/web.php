@@ -56,3 +56,4 @@ Route::group(['middleware' => ['auth:indosat_user']], function () {
 
 
 Route::view('indosat_certificate_empty', 'indosat_certificate_empty');
+Route::view('indosat_express_tab_before_ques', 'indosat_express_tab_before_ques');
