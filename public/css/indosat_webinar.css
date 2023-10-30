@@ -1053,14 +1053,16 @@ input:checked {
 .web_sug_box {
     position: absolute;
     top: 8% !important;
-    left: 14% !important;
-    max-width: 100px;
+    left: 19% !important;
+    max-width: 130px;
     color: #ffffff;
     background-color: #9277E0;
     border-radius: 10px;
     padding: 8px 5px;
     margin: 0.5rem 1rem 0.5rem 0rem;
-    font-size: 14px;
+    font-size: 60%;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .web_sug_box_list {
@@ -1124,7 +1126,7 @@ input:checked {
 @media (min-width: 768px) and (max-width: 1024px) {
     .web_sug_box {
         top: 8% !important;
-        left: 14% !important;
+        left: 19% !important;
     }
 
     .upweb_sug_box {
