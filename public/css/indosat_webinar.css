@@ -11,6 +11,20 @@
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .pink-grad {
+        width: 10px !important;
+        height: 40px !important;
+    }
+
+    .text-webinar {
+        font-size: 0.8rem !important;
+        margin-top: 10px;
+    }
+
+    .mar-r-3{
+        margin-right: 10px;
+    }
+
     .wui-side-menu.open {
         border-radius: 0 60px 60px 0;
     }
@@ -559,7 +573,7 @@ body {
 .pink-grad {
     background-image: linear-gradient(90deg, #E36BDDD9, #A864E5D9);
     width: 24px;
-    height: 30px;
+    height: 50px;
     border-radius: 7px;
     position: absolute;
     left: 25px;
@@ -600,7 +614,7 @@ input {
 
 label {
     position: absolute;
-    top: -1.8ex;
+    top: -1.5ex;
     z-index: 1;
     left: 2em;
     background-color: white;

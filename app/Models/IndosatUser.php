@@ -54,6 +54,19 @@ class IndosatUser extends Authenticatable
     {
         return $this->credits->where('expired', '<=', now())->sum('credit');
     }
+    
+    public function getTotalWebinarUserCredits()
+    {
+        return $this->credits->where('type', 1)->sum('credit');
+    }
+    public function getTotalWebinarExpiryCredits()
+    {
+        return $this->credits->where('type', 1)->where('expired', '<=', now())->sum('credit');
+    }
+    public function getTotalWebinarUsedCredits()
+    {
+        return $this->credits->where('type', 1)->where('is_credit', 2)->sum('credit');
+    }
 
     function userEvents(): HasMany
     {

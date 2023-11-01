@@ -6,7 +6,6 @@ use App\Models\IndonesiaEvent;
 use App\Models\IndosatEventUser;
 use App\Models\IndosatUser;
 use App\Models\IndosatUsersCredit;
-use App\Models\IndosatUsersUsedCredit;
 use App\Models\UserWebinarPreference;
 use App\Models\WebinarCategory;
 use Illuminate\Http\Request;
@@ -87,17 +86,21 @@ class IndosatAuthController extends Controller
         }
         $webinar_categories = WebinarCategory::all();
         $user_webinar_categories_array = $user->webinarPreferences->pluck('webinar_category_id')->toArray();
-        $credits = IndosatUsersCredit::where('user_id', $user->id)->get();
-        $used_credits = IndosatUsersUsedCredit::where('user_id', $user->id)->sum('credit');
-        $total_credits = $user->getTotalUserCredits();
-        $exp_credits = $user->getTotalExpiryCredits();
+
+        // 
+        $last_credit = IndosatUsersCredit::where('user_id', $user->id)->where('type', 1)->where('is_credit', 1)->latest()->first();
+        $latest_exp_credit = IndosatUsersCredit::where('user_id', $user->id)->where('type', 1)->where('is_credit', 1)->orderByRaw('ABS(DATEDIFF(expired, NOW()))')->first();
+        // 
+        $used_credits = $user->getTotalWebinarUsedCredits();
+        $total_credits = $user->getTotalWebinarUserCredits();
+        $exp_credits = $user->getTotalWebinarExpiryCredits();
         $available_credits = ($total_credits - $used_credits) - $exp_credits;
 
         if ($available_credits < 0) {
             $available_credits = 0;
         }
 
-        return view('indosat_webinar', compact('events', 'signed_up_events', 'credits', 'webinar_categories', 'user_webinar_categories_array', 'used_credits', 'available_credits', 'exp_credits'));
+        return view('indosat_webinar', compact('events', 'signed_up_events', 'webinar_categories', 'user_webinar_categories_array', 'used_credits', 'available_credits', 'exp_credits', 'last_credit', 'latest_exp_credit'));
     }
     public function webinarDetails($id)
     {
@@ -114,54 +117,29 @@ class IndosatAuthController extends Controller
         return view('indosat_webinar_details', compact('details', 'selected_events', 'previous_events'));
     }
 
-    // public function filterCreditAjax(Request $request)
-    // {
-    //     $userId = auth('indosat_user')->user()->id;
-    //     $month = $request->input('month');
-
-    //     if ($month == null) {
-    //         return IndosatUsersCredit::where('user_id', $userId)->get();
-    //     } else {
-    //         $date = \Carbon\Carbon::createFromFormat('Y-m', $month);
-    //         $selectedMonth = $date->format('m');
-    //         $selectedYear = $date->format('Y');
-
-    //         return IndosatUsersCredit::where('user_id', $userId)
-    //             ->whereMonth('created_at', $selectedMonth)
-    //             ->whereYear('created_at', $selectedYear)
-    //             ->get();
-    //     }
-    // }
-
     public function filterCreditAjax(Request $request)
     {
         $userId = auth('indosat_user')->user()->id;
         $month = $request->input('month');
 
+        $data = [];
         if ($month == null) {
-            $creditData = IndosatUsersCredit::where('user_id', $userId)->get();
-            $usedCreditData = IndosatUsersUsedCredit::where('user_id', $userId)->get();
+            $data = IndosatUsersCredit::where('user_id', $userId)
+                ->where('type', 1)
+                ->get();
         } else {
             $date = \Carbon\Carbon::createFromFormat('Y-m', $month);
             $selectedMonth = $date->format('m');
             $selectedYear = $date->format('Y');
 
-            $creditData = IndosatUsersCredit::where('user_id', $userId)
-                ->whereMonth('created_at', $selectedMonth)
-                ->whereYear('created_at', $selectedYear)
-                ->get();
-            $usedCreditData = IndosatUsersUsedCredit::where('user_id', $userId)
+            $data = IndosatUsersCredit::where('user_id', $userId)
+                ->where('type', 1)
                 ->whereMonth('created_at', $selectedMonth)
                 ->whereYear('created_at', $selectedYear)
                 ->get();
         }
 
-        $combinedData = [
-            'credit_data' => $creditData,
-            'used_credit_data' => $usedCreditData,
-        ];
-
-        return response()->json($combinedData);
+        return $data;
     }
 
     public function werbinarConfirm(Request $request)
@@ -181,9 +159,9 @@ class IndosatAuthController extends Controller
             ->where('indosat_user_id', $user->id)
             ->first();
 
-        $used_credits = IndosatUsersUsedCredit::where('user_id', $user->id)->sum('credit');
-        $total_credits = $user->getTotalUserCredits();
-        $exp_credits = $user->getTotalExpiryCredits();
+        $used_credits =  $user->getTotalWebinarUsedCredits();
+        $total_credits = $user->getTotalWebinarUserCredits();
+        $exp_credits = $user->getTotalWebinarExpiryCredits();
         $available_credits = ($total_credits - $used_credits) - $exp_credits;
 
         if ($available_credits > 0) {
@@ -200,10 +178,13 @@ class IndosatAuthController extends Controller
                     'is_payment' => 0,
                 ]);
 
-                IndosatUsersUsedCredit::create([
+                IndosatUsersCredit::create([
                     'user_id' => $user->id,
                     'credit' => 1,
                     'type' => 1,
+                    'is_credit' => 2,
+                    'indonesia_event_id' => $event->id,
+                    'package_name' => $event->name,
                 ]);
             }
         }

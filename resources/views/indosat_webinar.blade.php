@@ -158,7 +158,7 @@
                                 </div>
                                 <div class="col-lg-8">
                                     <div class="sum-grad mt-5">
-                                        <p>You’ve got 02 credits and 1 credit is expiring on 30 September 2023!</p>
+                                        <p>You’ve got {{$last_credit->credit}} credits and {{$latest_exp_credit->credit}} credit is expiring on {{$latest_exp_credit->created_at->format('j F Y')}}!</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-1"></div>
@@ -169,7 +169,7 @@
                                         <div class="col-lg-12">
                                             <div class="input-group input-wrapper month" id="datepicker">
                                                 <label for="month">Month</label>
-                                                <select name="selected_month" class="form-control" id="month-select" style="border-radius: 20px; border-color: #8950E1; height: 50px;">
+                                                <select name="selected_month" class="form-control" id="month-select" style="border-radius: 20px; border-color: #8950E1; height: 50px;outline: none;box-shadow:none;">
                                                     @php
                                                     $userCreatedAt = auth('indosat_user')->user()->created_at;
                                                     $currentMonthYear = now();
@@ -336,36 +336,7 @@
     function updateCreditList(data) {
         var creditList = $('#credit-list');
         creditList.empty();
-
-        $.each(data.credit_data, function(index, credit) {
-
-            var createdAtDate = new Date(credit.created_at);
-
-            var day = createdAtDate.getDate();
-            var monthIndex = createdAtDate.getMonth();
-            var year = createdAtDate.getFullYear();
-
-            var monthNames = [
-                "Jan", "Feb", "Mar", "Apr",
-                "May", "Jun", "Jul", "Aug",
-                "Sep", "Oct", "Nov", "Dec"
-            ];
-
-            var formattedDate = day + "-" + monthNames[monthIndex] + "-" + year;
-
-            var html = '<div class="row">' +
-                '<div class="col-lg-12">' +
-                '<div class="sum-last mt-2">' +
-                '<div class="pink-grad"></div>' +
-                '<p class="pt-2 pl-2">Package Purchased: [' + credit.package_name + '] <br><span class="date">' + formattedDate + '</span></p>' +
-                '<p class="credmax">' + credit.credit + ' Credit</p>' +
-                '</div>' +
-                '</div>' +
-                '</div>';
-            creditList.append(html);
-        });
-
-        $.each(data.used_credit_data, function(index, credit) {
+        $.each(data, function(index, credit) {
 
             var createdAtDate = new Date(credit.created_at);
 
@@ -385,8 +356,8 @@
                 '<div class="col-lg-12">' +
                 '<div class="sum-last mt-2">' +
                 '<div class="pink-grad"></div>' +
-                '<p class="pt-2 pl-2">Package Purchased <br><span class="date">' + formattedDate + '</span></p>' +
-                '<p class="credmin"> -' + credit.credit + ' Credit</p>' +
+                '<p class="pt-2 pl-2 pt-sm-3 text-webinar">' + (credit.is_credit == 1 ? "webinar package purchased" : credit.package_name + " registered") + ' <br><span class="date">' + formattedDate + '</span></p>' +
+                '<p class="text-webinar mar-r-3 ' + (credit.is_credit == 1 ? "credmax" : "credmin") + '">' + (credit.is_credit == 1 ? "" : "-") + credit.credit + (credit.is_credit == 1 ? " Credit" : " Debit") + '</p>' +
                 '</div>' +
                 '</div>' +
                 '</div>';
@@ -535,7 +506,7 @@
     }
     "@if(session()-> has('popup'))
     modalPreferences()
-    @endif"
+    @endif "
 
     function modalPreferences() {
         interestModal.style.display = "block";
