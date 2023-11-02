@@ -32,7 +32,7 @@
                     </div>
                     <div class="box web-img">
                         <div class="main_sug_box">
-                            <span>Leadership</span>
+                            <span style="white-space: nowrap;">{{$details->webinarCategory->title}}</span>
                         </div>
                         <img src="/assets/indosat/webinar_details.png">
                         <div class="date-box box1">
@@ -58,13 +58,14 @@
                         <div class="details">
                             <p>Webinar Title: {{$details->name}}
                                 <br>Speaker:
-                                <br>Zoom Link: <a href="{{$zoomUrl}}" class="link-primary">{{Str::limit($zoomUrl, $limit = 90, $end = '...')}}</a>
+                                <br>Zoom Link: <a href="{{$zoomUrl}}" target="_blank" class="link-primary">{{Str::limit($zoomUrl, $limit = 90, $end = '...')}}</a>
                                 <br>Zoom ID: {{$meetingId}}
                             </p>
                         </div>
                         <div class="info">Please join the Zoom meeting 10 minutes prior to the scheduled start time.</div>
                     </div>
                 </div>
+                @if($selected_events)
                 <div class="row mt-4">
                     <div class="col-lg-12 px-0">
                         <div class="section-header">
@@ -84,45 +85,53 @@
                         $meetingId = substr($meetingId, 0, strpos($meetingId, '?'));
                         }
 
+                        $eventDate = \Carbon\Carbon::parse($event->event->date);
+                        $now = \Carbon\Carbon::now();
                         @endphp
+
+                        @if($eventDate->greaterThanOrEqualTo($now))
                         @if($event->event->id != $details->id)
                         <div class="item">
-                            <div class="box web-img">
-                                <div class="web_sug_box web_sug_box_list details_sug_box">
-                                    <span>Leadership</span>
-                                </div>
-                                <img src="/assets/indosat/webinar_selected.png">
-                                <div class="date-box box2">
-                                    <i class="fa-solid fa-calendar-days"></i>
-                                    <span>{{$event->event->date}}</span>
-                                </div>
-                                <div class="date-box box3">
-                                    <i class="fa-solid fa-clock"></i>
-                                    <span>{{$event->event->time}}</span>
-                                </div>
-                                <div class="details">
-                                    <p>Webinar Title: {{Str::limit($event->event->name, $limit = 40, $end = '...')}}
-                                        <br>Speaker:
-                                        <br>Zoom Link: <a href="{{$zoomUrl}}" class="link-primary">{{Str::limit($zoomUrl, $limit = 40, $end = '...')}}</a>
-                                        <br>Zoom ID: {{$meetingId}}
-                                    </p>
-                                </div>
-                                <div class="row">
-                                    <div class="info col-10">
-                                        Please join the Zoom meeting 10 minutes prior to the scheduled start time.
+                            <a href="{{route('indosat.webinar.details',$event->event->id)}}" style="text-decoration:none;">
+                                <div class="box web-img">
+                                    <div class="web_sug_box web_sug_box_list details_sug_box">
+                                        <span>{{$event->event->webinarCategory->title}}</span>
                                     </div>
-                                    <div class="col-2">
-                                        <span class="back-arrow">
-                                            <i class="fa-solid fa-circle-arrow-right"></i>
-                                        </span>
+                                    <img src="/assets/indosat/webinar_selected.png">
+                                    <div class="date-box box2">
+                                        <i class="fa-solid fa-calendar-days"></i>
+                                        <span>{{$event->event->date}}</span>
+                                    </div>
+                                    <div class="date-box box3">
+                                        <i class="fa-solid fa-clock"></i>
+                                        <span>{{$event->event->time}}</span>
+                                    </div>
+                                    <div class="details">
+                                        <p>Webinar Title: {{Str::limit($event->event->name, $limit = 40, $end = '...')}}
+                                            <br>Speaker:
+                                            <br>Zoom Link: <a href="{{$zoomUrl}}" target="_blank" class="link-primary">{{Str::limit($zoomUrl, $limit = 40, $end = '...')}}</a>
+                                            <br>Zoom ID: {{$meetingId}}
+                                        </p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="info col-10">
+                                            Please join the Zoom meeting 10 minutes prior to the scheduled start time.
+                                        </div>
+                                        <a class="col-2" href="{{$zoomUrl}}" target="_blank">
+                                            <span class="back-arrow">
+                                                <i class="fa-solid fa-circle-arrow-right"></i>
+                                            </span>
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
+                        @endif
                         @endif
                         @endforeach
                     </div>
                 </div>
+                @endif
                 <div class="row mt-4">
                     <div class="col-lg-12 px-0">
                         <div class="section-header">
@@ -131,15 +140,24 @@
                     </div>
                     <div id="carouselExampleControls_7" class="owl-carousel new-carousel-previous" data-ride="carousel">
                         @foreach($previous_events as $event)
+                        @php
+                        $eventDate = \Carbon\Carbon::parse($event->event->date);
+                        $now = \Carbon\Carbon::now();
+                        @endphp
+
+                        @if($eventDate->lessThanOrEqualTo($now))
                         <div class="item">
-                            <div class="box web-img">
-                                <div class="web_sug_box">
-                                    <span>Leadership</span>
+                            <a href="{{route('indosat.webinar.details',$event->event->id)}}" style="text-decoration:none;">
+                                <div class="box web-img">
+                                    <div class="web_sug_box">
+                                        <span>{{$event->event->webinarCategory->title}}</span>
+                                    </div>
+                                    <img src="/assets/indosat/webinar_rec.png" id="confirmBtn">
+                                    <p>{{Str::limit($event->event->name, $limit = 20, $end = '...')}}</p>
                                 </div>
-                                <img src="/assets/indosat/webinar_rec.png" id="confirmBtn">
-                                <p>{{Str::limit($event->name, $limit = 20, $end = '...')}}</p>
-                            </div>
+                            </a>
                         </div>
+                        @endif
                         @endforeach
                     </div>
                 </div>

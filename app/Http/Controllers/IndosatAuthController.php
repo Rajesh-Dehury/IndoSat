@@ -111,9 +111,9 @@ class IndosatAuthController extends Controller
 
         if ($user) {
             $selected_events = $user->userEvents;
+            $previous_events = $user->userEvents;
         }
 
-        $previous_events = IndonesiaEvent::get();
         return view('indosat_webinar_details', compact('details', 'selected_events', 'previous_events'));
     }
 
