@@ -57,7 +57,7 @@
                     <div class="col-lg-12">
                         <div class="section-header row align-items-center">
                             <h3 class="col-10">We have suggested these webinars for you</h3>
-                            <p class="col-2"><span class="all">See all</span></p>
+                            <a href="{{route('indosat.webinarAll')}}" class="col-2"><span class="all">See all</span></a>
                         </div>
                     </div>
                     <div class="col-lg-12">

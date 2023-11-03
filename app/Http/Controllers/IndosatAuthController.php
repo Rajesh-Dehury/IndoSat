@@ -102,6 +102,12 @@ class IndosatAuthController extends Controller
 
         return view('indosat_webinar', compact('events', 'signed_up_events', 'webinar_categories', 'user_webinar_categories_array', 'used_credits', 'available_credits', 'exp_credits', 'last_credit', 'latest_exp_credit'));
     }
+
+    public function webinarAll()
+    {
+        $events = IndonesiaEvent::get();
+        return view('indosat_webinar_all', compact('events'));
+    }
     public function webinarDetails($id)
     {
         $user = Auth::guard('indosat_user')->user();
